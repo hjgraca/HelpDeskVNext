@@ -1,0 +1,8 @@
+﻿Add environment variable:
+SET <variable>=<path>
+
+Add db migrations:
+dnx ef migrations add <name>
+
+Update/create database:
+dnx ef database update

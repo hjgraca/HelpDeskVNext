@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24627.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CB9EC211-AF3F-467F-B68C-FB2016F0189E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{808EF8CC-7774-48D5-A541-A54B441DB9AD}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		NuGet.Config = NuGet.Config
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext", "src\HelpDeskVNext\HelpDeskVNext.xproj", "{9E058512-3843-4830-9D9A-5150FDE1EEE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{648DAF38-EC80-4849-A79C-80B630B06DBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8201C539-59DD-428C-8D61-CF911B7EE4D0}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{05471A7C-6CEC-44EE-9762-B844CE9B0D93}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\HelpDeskVNext.json = PublishScripts\Templates\HelpDeskVNext.json
+		PublishScripts\Templates\HelpDeskVNext.param.dev.json = PublishScripts\Templates\HelpDeskVNext.param.dev.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{51459277-4AA1-4BB6-AA7B-5043AB8264D9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HepDeskVNext.Test", "test\HepDeskVNext.Test\HepDeskVNext.Test.xproj", "{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Data", "src\HelpDeskVNext.Data\HelpDeskVNext.Data.xproj", "{2FBD55DF-842E-4224-A49C-9BEF9153DA33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E058512-3843-4830-9D9A-5150FDE1EEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E058512-3843-4830-9D9A-5150FDE1EEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E058512-3843-4830-9D9A-5150FDE1EEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E058512-3843-4830-9D9A-5150FDE1EEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9E058512-3843-4830-9D9A-5150FDE1EEE4} = {CB9EC211-AF3F-467F-B68C-FB2016F0189E}
+		{8201C539-59DD-428C-8D61-CF911B7EE4D0} = {648DAF38-EC80-4849-A79C-80B630B06DBA}
+		{05471A7C-6CEC-44EE-9762-B844CE9B0D93} = {648DAF38-EC80-4849-A79C-80B630B06DBA}
+		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9} = {51459277-4AA1-4BB6-AA7B-5043AB8264D9}
+		{2FBD55DF-842E-4224-A49C-9BEF9153DA33} = {CB9EC211-AF3F-467F-B68C-FB2016F0189E}
+	EndGlobalSection
+EndGlobal
