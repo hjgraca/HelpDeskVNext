@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{51459277-4AA1-4BB6-AA7B-5043AB8264D9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HepDeskVNext.Test", "test\HepDeskVNext.Test\HepDeskVNext.Test.xproj", "{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Test", "test\HelpDeskVNext.Test\HelpDeskVNext.Test.xproj", "{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Data", "src\HelpDeskVNext.Data\HelpDeskVNext.Data.xproj", "{2FBD55DF-842E-4224-A49C-9BEF9153DA33}"
 EndProject

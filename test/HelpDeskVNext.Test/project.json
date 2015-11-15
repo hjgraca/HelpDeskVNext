@@ -6,7 +6,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "tooling": {
-    "defaultNamespace": "HepDeskVNext.Test"
+    "defaultNamespace": "HelpDeskVNext.Test"
   },
 
   "dependencies": {

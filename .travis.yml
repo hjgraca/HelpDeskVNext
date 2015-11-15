@@ -1,0 +1,18 @@
+language: csharp
+sudo: required
+dist: trusty
+
+install:
+  - sudo add-apt-repository -y ppa:yjwong/libunwind
+  - sudo apt-get -y install libunwind8 gettext libssl-dev libcurl3-dev zlib1g libicu-dev unzip
+  - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
+  - dnvm upgrade  
+  - dnvm install -r coreclr latest
+  - dnu restore
+script:
+  # build projects
+  - dnu build src/HelpDeskVNext
+  - dnu build src/HelpDeskVNext.Data
+  - dnu build test/HelpDeskVNext.Test
+  # run tests
+  - dnx -p test/HelpDeskVNext.Test/project.json test

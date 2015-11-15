@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace HepDeskVNext.Test
+namespace HelpDeskVNext.Test
 {
     public class SampleTest
     {
