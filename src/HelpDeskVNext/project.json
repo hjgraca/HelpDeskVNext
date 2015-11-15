@@ -4,9 +4,10 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "HelpDeskVNext.Data": "1.0.0-*",
+    "HelpDeskVNext.Services": "1.0.0-*",
     "EntityFramework.Commands": "7.0.0-beta8",
     "EntityFramework.SqlServer": "7.0.0-beta8",
-    "HelpDeskVNext.Data": "1.0.0-*",
     "Microsoft.ApplicationInsights.AspNet": "1.0.0-beta8",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta8",
     "Microsoft.AspNet.Authentication.Facebook": "1.0.0-beta8",

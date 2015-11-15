@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0-*",
+  "description": "HelpDeskVNext.Services Class Library",
+  "authors": [ "Class Library template" ],
+  "tags": [""],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "tooling": {
+    "defaultNamespace": "HelpDeskVNext.Services"
+  },
+
+  "frameworks": {
+    "dnx451": { 
+      "dependencies": {
+        "Twilio": "4.4.0"
+      }
+    },
+    "dnxcore50": {
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.1-beta-*",
+        "System.Collections": "4.0.11-beta-*",
+        "System.Linq": "4.0.1-beta-*",
+        "System.Runtime": "4.0.21-beta-*",
+        "System.Threading": "4.0.11-beta-*"
+      }
+    }
+  }
+}
