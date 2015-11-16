@@ -32,6 +32,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Test", "test\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Data", "src\HelpDeskVNext.Data\HelpDeskVNext.Data.xproj", "{2FBD55DF-842E-4224-A49C-9BEF9153DA33}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelpDeskVNext.Services", "src\HelpDeskVNext.Services\HelpDeskVNext.Services.xproj", "{60FDA94F-0576-46C6-AFC7-AA2976B7DEED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FBD55DF-842E-4224-A49C-9BEF9153DA33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60FDA94F-0576-46C6-AFC7-AA2976B7DEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60FDA94F-0576-46C6-AFC7-AA2976B7DEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60FDA94F-0576-46C6-AFC7-AA2976B7DEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60FDA94F-0576-46C6-AFC7-AA2976B7DEED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{05471A7C-6CEC-44EE-9762-B844CE9B0D93} = {648DAF38-EC80-4849-A79C-80B630B06DBA}
 		{DC431CD2-BEE6-4A6F-BF87-2714AC43EED9} = {51459277-4AA1-4BB6-AA7B-5043AB8264D9}
 		{2FBD55DF-842E-4224-A49C-9BEF9153DA33} = {CB9EC211-AF3F-467F-B68C-FB2016F0189E}
+		{60FDA94F-0576-46C6-AFC7-AA2976B7DEED} = {CB9EC211-AF3F-467F-B68C-FB2016F0189E}
 	EndGlobalSection
 EndGlobal

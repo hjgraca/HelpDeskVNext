@@ -20,13 +20,6 @@
   },
 
   "frameworks" : {
-    "dnxcore50" : {
-      "dependencies": {
-        "System.Collections": "4.0.11-beta-23225",
-        "System.Linq": "4.0.1-beta-23225",
-        "System.Threading": "4.0.11-beta-23225",
-        "Microsoft.CSharp": "4.0.1-beta-23225"
-      }
-    }
+    "dnx451": {}
   }
 }

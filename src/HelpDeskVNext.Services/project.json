@@ -1,28 +1,26 @@
 {
   "version": "1.0.0-*",
-  "description": "HelpDeskVNext.Services Class Library",
+  "description": "HelpDeskVNext.Services",
   "authors": [ "Class Library template" ],
-  "tags": [""],
+  "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "tooling": {
     "defaultNamespace": "HelpDeskVNext.Services"
   },
-
+  "dependencies": {
+    "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta8",
+    "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.EnvironmentVariables": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.FileExtensions": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+    "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta8",
+    "Twilio": "4.4.0",
+    "Twilio.TwiML": "3.4.0"
+  },
   "frameworks": {
-    "dnx451": { 
-      "dependencies": {
-        "Twilio": "4.4.0"
-      }
-    },
-    "dnxcore50": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-*",
-        "System.Collections": "4.0.11-beta-*",
-        "System.Linq": "4.0.1-beta-*",
-        "System.Runtime": "4.0.21-beta-*",
-        "System.Threading": "4.0.11-beta-*"
-      }
-    }
+    "dnx451": {}
   }
 }

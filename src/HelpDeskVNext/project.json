@@ -29,7 +29,9 @@
     "Microsoft.Framework.Logging": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Console": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Debug": "1.0.0-beta8",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8",
+    "Twilio": "4.4.0",
+    "Twilio.TwiML": "3.4.0"
   },
 
   "commands": {
@@ -38,7 +40,7 @@
   },
 
   "frameworks": {
-    "dnxcore50": { }
+    "dnx451": {}
   },
 
   "exclude": [
