@@ -1,4 +1,4 @@
-﻿namespace HelpDeskVNext.Services
+﻿namespace HelpDeskVNext.Services.SmsProvider
 {
     public interface ISmsService
     {

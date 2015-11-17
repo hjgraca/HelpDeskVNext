@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Twilio;
-using Twilio.TwiML;
 
-namespace HelpDeskVNext.Services
+namespace HelpDeskVNext.Services.SmsProvider
 {
     public class SmsService : ISmsService
     {
@@ -21,7 +16,7 @@ namespace HelpDeskVNext.Services
             //string smsResponse;
             //return TwiML(Respond(smsResponse));
 
-            _twilioRestClient.SendMessage("441455561010", "4407808557240", "test");
+            //_twilioRestClient.SendMessage("441455561010", "4407808557240", "test");
 
             return string.Empty;
         }

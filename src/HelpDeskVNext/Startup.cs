@@ -10,6 +10,9 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Services;
+using HelpDeskVNext.Services.ProjectManager;
+using HelpDeskVNext.Services.SmsProvider;
+using TrelloNet;
 using Twilio;
 
 namespace HelpDeskVNext
@@ -73,8 +76,9 @@ namespace HelpDeskVNext
 
             services.AddScoped(provider => new TwilioRestClient(
                 Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"]));
-
+            services.AddScoped<ITrello>(provider => new Trello(Configuration["Trello:ApiKey"]));
             services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IProjectManager, ProjectManager>();
         }
 
         // Configure is called after ConfigureServices is called.

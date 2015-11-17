@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HelpDeskVNext.Services;
+using HelpDeskVNext.Services.SmsProvider;
 using Microsoft.AspNet.Mvc;
 using Twilio;
 using Twilio.TwiML;
@@ -21,16 +22,15 @@ namespace HelpDeskVNext.Controllers
 
         // GET: api/ticket
         [HttpGet]
-        public IEnumerable<string> Get()
+        public TwilioResponse Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET api/ticket/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            _smsService.ProcessMessage("", "");
             return "value";
         }
 
@@ -39,7 +39,7 @@ namespace HelpDeskVNext.Controllers
         public void Post(string from, string body)
         {
 
-            _smsService.ProcessMessage(from, body);
+            //_smsService.ProcessMessage(from, body);
 
             //string smsResponse;
 
