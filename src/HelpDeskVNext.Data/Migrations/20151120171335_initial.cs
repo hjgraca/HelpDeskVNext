@@ -98,7 +98,8 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_ApplicationUser_Departamento_DepartamentoDepartamentoId",
                         column: x => x.DepartamentoDepartamentoId,
                         principalTable: "Departamento",
-                        principalColumn: "DepartamentoId");
+                        principalColumn: "DepartamentoId",
+                        onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -108,7 +109,7 @@ namespace HelpDeskVNext.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<string>(nullable: true)
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,7 +118,8 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_IdentityRoleClaim<string>_IdentityRole_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
                 name: "Ticket",
@@ -143,27 +145,32 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_Ticket_Avaria_AvariaId",
                         column: x => x.AvariaId,
                         principalTable: "Avaria",
-                        principalColumn: "AvariaId");
+                        principalColumn: "AvariaId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ticket_Departamento_DepartamentoId",
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
-                        principalColumn: "DepartamentoId");
+                        principalColumn: "DepartamentoId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ticket_Estado_EstadoId",
                         column: x => x.EstadoId,
                         principalTable: "Estado",
-                        principalColumn: "EstadoId");
+                        principalColumn: "EstadoId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ticket_Prioridade_PrioridadeId",
                         column: x => x.PrioridadeId,
                         principalTable: "Prioridade",
-                        principalColumn: "PrioridadeId");
+                        principalColumn: "PrioridadeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ticket_ApplicationUser_TecnicoId",
                         column: x => x.TecnicoId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
@@ -173,7 +180,7 @@ namespace HelpDeskVNext.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,7 +189,8 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_IdentityUserClaim<string>_ApplicationUser_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
@@ -191,7 +199,7 @@ namespace HelpDeskVNext.Data.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -200,7 +208,8 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_IdentityUserLogin<string>_ApplicationUser_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
@@ -216,12 +225,14 @@ namespace HelpDeskVNext.Data.Migrations
                         name: "FK_IdentityUserRole<string>_IdentityRole_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_IdentityUserRole<string>_ApplicationUser_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

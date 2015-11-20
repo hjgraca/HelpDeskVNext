@@ -7,10 +7,11 @@
   "licenseUrl": "",
 
   "dependencies": {
-    "EntityFramework.Commands": "7.0.0-beta8",
-    "EntityFramework.SqlServer": "7.0.0-beta8",
-    "EntityFramework.SQLite": "7.0.0-beta8",
-    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-beta8"
+    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "EntityFramework.SQLite": "7.0.0-rc1-final",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
   },
 
   "commands": {

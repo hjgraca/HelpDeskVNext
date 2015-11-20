@@ -9,14 +9,6 @@
     "defaultNamespace": "HelpDeskVNext.Services"
   },
   "dependencies": {
-    "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta8",
-    "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-beta8",
-    "Microsoft.Framework.Configuration": "1.0.0-beta8",
-    "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
-    "Microsoft.Framework.Configuration.EnvironmentVariables": "1.0.0-beta8",
-    "Microsoft.Framework.Configuration.FileExtensions": "1.0.0-beta8",
-    "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
-    "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta8",
     "Twilio": "4.4.0",
     "Twilio.TwiML": "3.4.0",
     "TrelloNet": "0.6.2"
