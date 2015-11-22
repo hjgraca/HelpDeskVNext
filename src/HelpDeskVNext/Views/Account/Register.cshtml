@@ -1,4 +1,7 @@
-﻿@model RegisterViewModel
+﻿@using Microsoft.AspNet.Identity.EntityFramework
+@model HelpDeskVNext.Data.Models.User.RegisterViewModel
+@inject HelpDeskVNext.Data.Models.IService<IdentityRole, string> RoleService
+@inject HelpDeskVNext.Data.Models.IService<HelpDeskVNext.Data.Entitidades.Departamento, int> DepartamentoService
 @{
     ViewData["Title"] = "Register";
 }
@@ -10,10 +13,24 @@
     <hr />
     <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
     <div class="form-group">
+        <label asp-for="Nome" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
+            <input asp-for="Email" class="form-control"/>
             <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
@@ -26,10 +43,24 @@
     <div class="form-group">
         <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
+            <input asp-for="ConfirmPassword" class="form-control"/>
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
+    <div class="form-group">
+        <label asp-for="Departamento" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select class="form-control" asp-for="Departamento" asp-items="DepartamentoService.GetList()"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select class="form-control" asp-for="Role" asp-items="RoleService.GetList()"></select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-default">Register</button>

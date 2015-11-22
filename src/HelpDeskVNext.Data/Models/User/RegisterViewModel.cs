@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Mvc.Rendering;
 
-namespace HelpDeskVNext.ViewModels.Account
+namespace HelpDeskVNext.Data.Models.User
 {
     public class RegisterViewModel
     {
@@ -20,8 +18,22 @@ namespace HelpDeskVNext.ViewModels.Account
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirmar password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Acesso")]
+        public string Role { get; set; }
+
+        [Required]
+        public string Nome { get; set; }
+
+        [Required]
+        [Display(Name = "Telefone")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Departamento")]
+        public int Departamento { get; set; }
     }
 }

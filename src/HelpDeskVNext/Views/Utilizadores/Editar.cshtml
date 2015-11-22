@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework
+@model HelpDeskVNext.Data.Models.ApplicationUser
+@inject HelpDeskVNext.Data.Models.IService<IdentityRole, string> RoleService
+@inject HelpDeskVNext.Data.Models.IService<HelpDeskVNext.Data.Entitidades.Departamento, int> DepartamentoService
+
+<form asp-controller="Utilizadores" asp-action="Editar" method="post" class="form-horizontal" role="form">
+    <input type="hidden" asp-for="Id" />
+    <h4>Editar utilizador #@Model.Id</h4>
+    <hr />
+    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Nome" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Departamento" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @* TODO: Move to taghelpers *@
+            @*<select class="form-control" asp-for="Departamento" asp-items="DepartamentoService.GetList(@Model.Departamento.DepartamentoId)"></select>*@
+            <select class="form-control" asp-for="Departamento">
+                @foreach (var item in DepartamentoService.GetList(Model.Departamento.DepartamentoId))
+                {
+                    if (item.Selected)
+                    {
+                        <option selected="selected" value="@item.Value">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+            <label asp-for="Roles" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select multiple="multiple" class="form-control" asp-for="Roles">
+                    @foreach (var item in RoleService.GetList())
+                    {
+                        if (Model.Roles.Any(x => x.RoleId == item.Value))
+                        {
+                            <option selected="selected" value="@item.Value">@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success">Gravar</button>
+            <a class="btn btn-danger" asp-controller="Utilizadores" asp-action="Index" role="button">Cancelar</a>
+        </div>
+    </div>
+</form>

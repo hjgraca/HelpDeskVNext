@@ -1,4 +1,6 @@
-﻿namespace HelpDeskVNext.Data.Entitidades
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HelpDeskVNext.Data.Entitidades
 {
     public class Departamento
     {

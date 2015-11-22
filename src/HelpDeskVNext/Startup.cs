@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using System.Security.Cryptography.X509Certificates;
+using HelpDeskVNext.Data.Entitidades;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -6,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HelpDeskVNext.Data.Models;
+using HelpDeskVNext.Data.Models.Departamentos;
+using HelpDeskVNext.Data.Models.Roles;
+using HelpDeskVNext.Data.Models.User;
 using HelpDeskVNext.Services;
 using HelpDeskVNext.Services.ProjectManager;
 using HelpDeskVNext.Services.SmsProvider;
@@ -20,8 +25,8 @@ namespace HelpDeskVNext
         {
             // Setup configuration sources.
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile("appsettings.json");
+                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
@@ -33,7 +38,7 @@ namespace HelpDeskVNext
                 builder.AddApplicationInsightsSettings(developerMode: true);
 
             }
-            builder.AddEnvironmentVariables();
+            //builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -45,16 +50,9 @@ namespace HelpDeskVNext
             // Add Application Insights data collection services to the services container.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            // Add Entity Framework services to the services container.
-            //  services.AddEntityFramework()
-            //      .AddSqlServer()
-            //      .AddDbContext<ApplicationDbContext>(options =>
-            //          options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
             services.AddEntityFramework()
-                .AddSqlite()
-                .AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
+            .AddSqlite()
+            .AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
 
             // Add Identity services to the services container.
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {
@@ -62,18 +60,33 @@ namespace HelpDeskVNext
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonLetterOrDigit = false;
-
             }).AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+              .AddDefaultTokenProviders();
+
+            services.Configure<IdentityDbContextOptions>(options =>
+            {
+                options.DefaultAdminUserName = Configuration["DefaultAdminUsername"];
+                options.DefaultAdminPassword = Configuration["DefaultAdminPassword"];
+                options.Roles = Configuration["Roles:Global"];
+                options.AdministratorRole = Configuration["Roles:Administrator"];
+            });
 
             // Add MVC services to the services container.
             services.AddMvc();
 
+            RegisterServices(services);
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
             services.AddScoped(provider => new TwilioRestClient(
                 Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"]));
             services.AddScoped<ITrello>(provider => new Trello(Configuration["Trello:ApiKey"]));
             services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<IProjectManager, ProjectManager>();
+            services.AddScoped<IService<ApplicationUser, string>, UtilizadoresService>();
+            services.AddScoped<IService<Departamento, int>, DepartamentoService>();
+            services.AddScoped<IService<IdentityRole, string>, RoleService>();
         }
 
         // Configure is called after ConfigureServices is called.
@@ -133,6 +146,11 @@ namespace HelpDeskVNext
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            SampleData.InitializeIdentityDatabaseAsync(app.ApplicationServices).Wait();
         }
+
+        // Entry point for the application.
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

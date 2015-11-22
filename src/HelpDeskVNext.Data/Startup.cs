@@ -16,8 +16,8 @@ namespace HelpDeskVNext.Data
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(appEnv.ApplicationBasePath)
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+                .AddJsonFile("appsettings.json");
+                //.AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }

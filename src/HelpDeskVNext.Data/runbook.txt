@@ -6,3 +6,6 @@ dnx ef migrations add <name>
 
 Update/create database:
 dnx ef database update
+
+Install Dnx Watch
+dnu commands install Microsoft.Dnx.Watcher

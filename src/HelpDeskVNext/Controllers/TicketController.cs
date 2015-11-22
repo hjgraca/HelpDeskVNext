@@ -21,7 +21,7 @@ namespace HelpDeskVNext.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            _projectManager.AddTask();
+            //_projectManager.AddTask();
 
             return View();
         }

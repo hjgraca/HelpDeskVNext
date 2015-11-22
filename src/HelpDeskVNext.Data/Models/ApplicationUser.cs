@@ -1,4 +1,5 @@
-﻿using HelpDeskVNext.Data.Entitidades;
+﻿using System.Collections.Generic;
+using HelpDeskVNext.Data.Entitidades;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HelpDeskVNext.Data.Models
@@ -8,5 +9,14 @@ namespace HelpDeskVNext.Data.Models
     {
         public virtual Departamento Departamento { get; set; }
         public string Nome { get; set; }
+    }
+
+    public class IdentityDbContextOptions
+    {
+        public string DefaultAdminUserName { get; set; }
+
+        public string DefaultAdminPassword { get; set; }
+        public string Roles { get; set; }
+        public string AdministratorRole { get; set; }
     }
 }
