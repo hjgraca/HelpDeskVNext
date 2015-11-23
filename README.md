@@ -2,6 +2,8 @@
 
 Build status : [![Build Status](https://travis-ci.org/hjgraca/HelpDeskVNext.svg)](https://travis-ci.org/hjgraca/HelpDeskVNext)
 
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+
 Created using asp.net 5 rc1
 Uses entity framework 7 and Sql Lite
 Travis to build
