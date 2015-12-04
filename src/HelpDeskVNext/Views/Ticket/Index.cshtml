@@ -1,3 +1,27 @@
-﻿
+﻿@model IEnumerable<HelpDeskVNext.Data.Entitidades.Ticket>
 
 <h1>Tickets</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Descricao</th>
+            <th>Estado</th>
+            <th>Data insercao</th>
+            <th>Data conclusao</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <th scope="row">@ticket.TicketId</th>
+                <td>@ticket.Descricao</td>
+                <td>@ticket.Estado</td>
+                <td>@ticket.DataInsercao</td>
+                <td>@ticket.DataConclusao</td>
+            </tr>
+        }
+    </tbody>
+</table>

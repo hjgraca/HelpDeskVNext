@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using HelpDeskVNext.Services.ProjectManager;
 using Microsoft.AspNet.Mvc;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace HelpDeskVNext.Controllers
 {
     public class TicketController : Controller
