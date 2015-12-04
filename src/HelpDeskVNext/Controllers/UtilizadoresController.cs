@@ -37,18 +37,6 @@ namespace HelpDeskVNext.Controllers
             return Redirect();
         }
 
-        public IActionResult Adicionar()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Adicionar(ApplicationUser user)
-        {
-            _userService.Create(user);
-            return Redirect();
-        }
-
         [HttpPost]
         public IActionResult Apagar(string id)
         {

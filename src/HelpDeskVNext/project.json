@@ -6,7 +6,7 @@
   "dependencies": {
     "HelpDeskVNext.Data": "1.0.0-*",
     "HelpDeskVNext.Services": "1.0.0-*",
-    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",    
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
@@ -27,7 +27,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "Twilio": "4.4.0",
     "Twilio.TwiML": "3.4.0",
-    "TrelloNet": "0.6.2"
+    "TrelloNet": "0.6.2",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final"
   },
 
   "commands": {

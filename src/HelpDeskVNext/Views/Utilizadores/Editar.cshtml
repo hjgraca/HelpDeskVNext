@@ -35,7 +35,7 @@
             @* TODO: Move to taghelpers *@
             @*<select class="form-control" asp-for="Departamento" asp-items="DepartamentoService.GetList(@Model.Departamento.DepartamentoId)"></select>*@
             <select class="form-control" asp-for="Departamento">
-                @foreach (var item in DepartamentoService.GetList(Model.Departamento.DepartamentoId))
+                @foreach (var item in DepartamentoService.GetList(Model.Departamento?.DepartamentoId ?? 0))
                 {
                     if (item.Selected)
                     {

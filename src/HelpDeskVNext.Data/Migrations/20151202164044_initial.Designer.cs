@@ -8,13 +8,14 @@ using HelpDeskVNext.Data.Models;
 namespace HelpDeskVNext.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20151120171335_initial")]
+    [Migration("20151202164044_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Avaria", b =>
                 {

@@ -25,8 +25,9 @@ namespace HelpDeskVNext.Data
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEntityFramework()
-                .AddSqlite()
-                .AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
+                .AddSqlServer()
+                .AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
         }
         public void Configure(IApplicationBuilder app)
         {

@@ -50,9 +50,15 @@ namespace HelpDeskVNext
             // Add Application Insights data collection services to the services container.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            // Add Entity Framework services to the services container.
             services.AddEntityFramework()
-            .AddSqlite()
-            .AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
+                .AddSqlServer()
+                .AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            //services.AddEntityFramework()
+            //.AddSqlite()
+            //.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
 
             // Add Identity services to the services container.
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {

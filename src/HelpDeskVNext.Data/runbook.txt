@@ -1,6 +1,8 @@
 ﻿Add environment variable:
 SET <variable>=<path>
 
+LocalDb: (localdb)\mssqllocaldb
+
 Add db migrations:
 dnx ef migrations add <name>
 

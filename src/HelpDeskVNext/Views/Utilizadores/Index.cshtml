@@ -4,7 +4,7 @@
 <h2>Gerir utilizadores</h2>
 <br />
 <div>
-    <a class="btn btn-default" asp-controller="Utilizadores" asp-action="Adicionar">Adicionar utilizador</a>
+    <a class="btn btn-default" asp-controller="Account" asp-action="Register">Adicionar utilizador</a>
 </div>
 <br/>
 <div class="panel panel-default">
@@ -32,7 +32,12 @@
                 <td>@user.Email</td>
                 <td>@user.PhoneNumber</td>
                 <td>@user.UserName</td>
-                <td><a asp-controller="Departamentos" asp-action="Editar" asp-route-id="@user.Departamento.DepartamentoId">@user.Departamento.Nome</a></td>
+                <td>
+                    @if (user.Departamento != null)
+                    {
+                        <a asp-controller="Departamentos" asp-action="Editar" asp-route-id="@user.Departamento.DepartamentoId">@user.Departamento.Nome</a>
+                    }
+                </td>
                 <td><a asp-controller="Acessos" asp-action="List" asp-route-id="@user.Id">@user.Roles.Count</a></td>
                 <td class="td-actions">
                     <a class="btn btn-warning btn-xs" asp-controller="Utilizadores" asp-action="Editar" asp-route-id="@user.Id">Editar</a>

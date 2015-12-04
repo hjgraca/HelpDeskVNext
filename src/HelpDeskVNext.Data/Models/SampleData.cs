@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
 
@@ -15,13 +16,10 @@ namespace HelpDeskVNext.Data.Models
     {
         public static async Task InitializeIdentityDatabaseAsync(IServiceProvider serviceProvider)
         {
-            using (var db = serviceProvider.GetRequiredService<ApplicationDbContext>())
-            {
-                if (await db.Database.EnsureCreatedAsync())
-                {
-                    await CreateAdminUser(serviceProvider);
-                }
-            }
+            var context = serviceProvider.GetService<ApplicationDbContext>();
+            context.Database.Migrate();
+
+            await CreateAdminUser(serviceProvider);
         }
 
         /// <summary>
