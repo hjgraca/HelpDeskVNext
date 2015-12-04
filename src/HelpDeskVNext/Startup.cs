@@ -38,7 +38,7 @@ namespace HelpDeskVNext
                 builder.AddApplicationInsightsSettings(developerMode: true);
 
             }
-            //builder.AddEnvironmentVariables();
+            builder.AddEnvironmentVariables(); // add because of Azure
             Configuration = builder.Build();
         }
 
