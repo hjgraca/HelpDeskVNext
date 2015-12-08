@@ -8,13 +8,24 @@ using HelpDeskVNext.Data.Models;
 namespace HelpDeskVNext.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151208215858_updateticket2")]
+    partial class updateticket2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Avaria", b =>
+                {
+                    b.Property<int>("AvariaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Designacao");
+
+                    b.HasKey("AvariaId");
+                });
 
             modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Departamento", b =>
                 {
@@ -50,6 +61,8 @@ namespace HelpDeskVNext.Data.Migrations
                 {
                     b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AvariaId");
 
                     b.Property<string>("CreatedByUtilizadorId");
 
@@ -208,6 +221,10 @@ namespace HelpDeskVNext.Data.Migrations
 
             modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Ticket", b =>
                 {
+                    b.HasOne("HelpDeskVNext.Data.Entitidades.Avaria")
+                        .WithMany()
+                        .HasForeignKey("AvariaId");
+
                     b.HasOne("HelpDeskVNext.Data.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUtilizadorId");

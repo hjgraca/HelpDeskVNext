@@ -8,13 +8,24 @@ using HelpDeskVNext.Data.Models;
 namespace HelpDeskVNext.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151208215438_updateticket")]
+    partial class updateticket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Avaria", b =>
+                {
+                    b.Property<int>("AvariaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Designacao");
+
+                    b.HasKey("AvariaId");
+                });
 
             modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Departamento", b =>
                 {
@@ -51,7 +62,7 @@ namespace HelpDeskVNext.Data.Migrations
                     b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedByUtilizadorId");
+                    b.Property<int>("AvariaId");
 
                     b.Property<DateTime?>("DataConclusao");
 
@@ -65,9 +76,9 @@ namespace HelpDeskVNext.Data.Migrations
 
                     b.Property<int>("PrioridadeId");
 
-                    b.Property<string>("TecnicoId");
-
                     b.Property<string>("Titulo");
+
+                    b.Property<string>("UtilizadorId");
 
                     b.HasKey("TicketId");
                 });
@@ -208,9 +219,9 @@ namespace HelpDeskVNext.Data.Migrations
 
             modelBuilder.Entity("HelpDeskVNext.Data.Entitidades.Ticket", b =>
                 {
-                    b.HasOne("HelpDeskVNext.Data.Models.ApplicationUser")
+                    b.HasOne("HelpDeskVNext.Data.Entitidades.Avaria")
                         .WithMany()
-                        .HasForeignKey("CreatedByUtilizadorId");
+                        .HasForeignKey("AvariaId");
 
                     b.HasOne("HelpDeskVNext.Data.Entitidades.Departamento")
                         .WithMany()
@@ -226,7 +237,7 @@ namespace HelpDeskVNext.Data.Migrations
 
                     b.HasOne("HelpDeskVNext.Data.Models.ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("TecnicoId");
+                        .HasForeignKey("UtilizadorId");
                 });
 
             modelBuilder.Entity("HelpDeskVNext.Data.Models.ApplicationUser", b =>

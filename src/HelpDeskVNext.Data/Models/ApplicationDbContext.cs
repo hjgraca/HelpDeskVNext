@@ -9,8 +9,6 @@ namespace HelpDeskVNext.Data.Models
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<Prioridade> Prioridades { get; set; }
-        //public DbSet<Tecnico> Tecnicos { get; set; }
-        public DbSet<Avaria> Avarias { get; set; }
         public DbSet<Estado> Estados { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

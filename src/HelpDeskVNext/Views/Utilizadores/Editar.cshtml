@@ -32,8 +32,6 @@
     <div class="form-group">
         <label asp-for="Departamento" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            @* TODO: Move to taghelpers *@
-            @*<select class="form-control" asp-for="Departamento" asp-items="DepartamentoService.GetList(@Model.Departamento.DepartamentoId)"></select>*@
             <select class="form-control" asp-for="Departamento">
                 @foreach (var item in DepartamentoService.GetList(Model.Departamento?.DepartamentoId ?? 0))
                 {

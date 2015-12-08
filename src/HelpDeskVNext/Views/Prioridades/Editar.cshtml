@@ -1,0 +1,22 @@
+﻿@model HelpDeskVNext.Data.Entitidades.Prioridade
+
+<form asp-controller="Prioridades" asp-action="Editar" method="post" class="form-horizontal" role="form">
+    <input type="hidden" asp-for="PrioridadeId" />
+    <h4>Editar prioridade #@Model.PrioridadeId</h4>
+    <hr/>
+    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Designacao" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Designacao" class="form-control"/>
+            <span asp-validation-for="Designacao" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success">Gravar</button>
+            <a class="btn btn-danger" asp-controller="Prioridades" asp-action="Index" role="button">Cancelar</a>
+        </div>
+    </div>
+</form>

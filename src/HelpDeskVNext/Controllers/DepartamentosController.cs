@@ -15,7 +15,6 @@ namespace HelpDeskVNext.Controllers
             _departamentoService = departamentoService;
         }
 
-        // GET: /<controller>/
         public IActionResult Index()
         {
             return View(_departamentoService.Get());

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Data.Models.Departamentos;
 using HelpDeskVNext.Data.Models.Roles;
+using HelpDeskVNext.Data.Models.Tickets;
 using HelpDeskVNext.Data.Models.User;
 using HelpDeskVNext.Services;
 using HelpDeskVNext.Services.ProjectManager;
@@ -93,6 +94,8 @@ namespace HelpDeskVNext
             services.AddScoped<IService<ApplicationUser, string>, UtilizadoresService>();
             services.AddScoped<IService<Departamento, int>, DepartamentoService>();
             services.AddScoped<IService<IdentityRole, string>, RoleService>();
+            services.AddScoped<IService<Ticket, int>, TicketService>();
+            services.AddScoped<IService<Prioridade, int>, PrioridadeService>();
         }
 
         // Configure is called after ConfigureServices is called.

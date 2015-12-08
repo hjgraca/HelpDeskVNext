@@ -38,9 +38,9 @@ namespace HelpDeskVNext.Data.Models.Roles
             SaveChanges();
         }
 
-        public void Create(IdentityRole item)
+        public void Create(IdentityRole ticket)
         {
-            _applicationDbContext.Roles.Add(item);
+            _applicationDbContext.Roles.Add(ticket);
             SaveChanges();
         }
 
@@ -49,9 +49,9 @@ namespace HelpDeskVNext.Data.Models.Roles
             return _applicationDbContext.Roles.FirstOrDefault(x => x.Id == id);
         }
 
-        public void Update(IdentityRole item)
+        public void Update(IdentityRole ticket)
         {
-            _applicationDbContext.Roles.Update(item);
+            _applicationDbContext.Roles.Update(ticket);
             SaveChanges();
         }
     }

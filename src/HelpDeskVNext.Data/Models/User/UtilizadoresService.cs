@@ -22,9 +22,9 @@ namespace HelpDeskVNext.Data.Models.User
             throw new NotImplementedException();
         }
 
-        public void Create(ApplicationUser item)
+        public void Create(ApplicationUser ticket)
         {
-            _applicationDbContext.Users.Add(item);
+            _applicationDbContext.Users.Add(ticket);
             SaveChanges();
         }
 
@@ -46,9 +46,9 @@ namespace HelpDeskVNext.Data.Models.User
             return user;
         }
 
-        public void Update(ApplicationUser item)
+        public void Update(ApplicationUser ticket)
         {
-            _applicationDbContext.Users.Update(item);
+            _applicationDbContext.Users.Update(ticket);
             SaveChanges();
         }
     }

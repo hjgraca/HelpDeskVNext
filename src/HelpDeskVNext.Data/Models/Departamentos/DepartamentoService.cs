@@ -33,9 +33,9 @@ namespace HelpDeskVNext.Data.Models.Departamentos
             return _applicationDbContext.Departamentos.FirstOrDefault(x => x.DepartamentoId == id);
         }
 
-        public void Update(Departamento departamento)
+        public void Update(Departamento ticket)
         {
-            _applicationDbContext.Departamentos.Update(departamento);
+            _applicationDbContext.Departamentos.Update(ticket);
             SaveChanges();
         }
 
@@ -51,9 +51,9 @@ namespace HelpDeskVNext.Data.Models.Departamentos
             return _applicationDbContext.Departamentos;
         }
 
-        public void Create(Departamento departamento)
+        public void Create(Departamento ticket)
         {
-            _applicationDbContext.Departamentos.Add(departamento);
+            _applicationDbContext.Departamentos.Add(ticket);
             SaveChanges();
         }
     }
