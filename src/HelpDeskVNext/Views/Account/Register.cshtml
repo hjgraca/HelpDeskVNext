@@ -3,13 +3,11 @@
 @inject HelpDeskVNext.Data.Models.IService<IdentityRole, string> RoleService
 @inject HelpDeskVNext.Data.Models.IService<HelpDeskVNext.Data.Entitidades.Departamento, int> DepartamentoService
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Criar novo utilizador";
 }
 
-<h2>@ViewData["Title"].</h2>
-
 <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
-    <h4>Create a new account.</h4>
+    <h4>Criar novo utilizador</h4>
     <hr />
     <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
     <div class="form-group">
@@ -54,10 +52,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="Role" class="col-md-2 control-label"></label>
+        <label asp-for="Roles" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <select class="form-control" asp-for="Role" asp-items="RoleService.GetList()"></select>
-            <span asp-validation-for="Role" class="text-danger"></span>
+            <select class="form-control" asp-for="Roles" asp-items="RoleService.GetList()"></select>
+            <span asp-validation-for="Roles" class="text-danger"></span>
         </div>
     </div>
 

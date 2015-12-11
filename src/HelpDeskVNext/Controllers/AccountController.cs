@@ -75,7 +75,7 @@ namespace HelpDeskVNext.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
+        public IActionResult Register(bool login = false)
         {
             return View();
         }
@@ -89,15 +89,30 @@ namespace HelpDeskVNext.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    Nome = model.Nome,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DepartamentoId = model.Departamento,
+                    PhoneNumber = model.PhoneNumber
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var t1 = _userManager.AddToRoleAsync(user, model.Role);
-                    var t2 = _signInManager.SignInAsync(user, isPersistent: false);
+                    if (model.Login)
+                    {
+                        var t1 = _userManager.AddToRolesAsync(user, model.Roles);
+                        var t2 = _signInManager.SignInAsync(user, isPersistent: false);
+                        await Task.WhenAll(t1, t2);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRolesAsync(user, model.Roles);
+                        return RedirectToAction(nameof(UtilizadoresController.Index), "Utilizadores");
+                    }
 
-                    await Task.WhenAll(t1, t2);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }

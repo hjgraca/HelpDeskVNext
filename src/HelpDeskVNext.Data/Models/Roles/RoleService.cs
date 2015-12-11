@@ -27,7 +27,7 @@ namespace HelpDeskVNext.Data.Models.Roles
             {
                 Text = x.Name,
                 Value = x.Name,
-                Selected = x.Id == id
+                Selected = x.Users.Any(u => u.UserId == id)
             });
         }
 

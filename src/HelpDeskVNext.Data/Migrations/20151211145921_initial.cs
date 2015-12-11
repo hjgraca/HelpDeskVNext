@@ -10,18 +10,6 @@ namespace HelpDeskVNext.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Avaria",
-                columns: table => new
-                {
-                    AvariaId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Designacao = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Avaria", x => x.AvariaId);
-                });
-            migrationBuilder.CreateTable(
                 name: "Departamento",
                 columns: table => new
                 {
@@ -77,7 +65,7 @@ namespace HelpDeskVNext.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    DepartamentoDepartamentoId = table.Column<int>(nullable: true),
+                    DepartamentoId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     LockoutEnabled = table.Column<bool>(nullable: false),
@@ -96,8 +84,8 @@ namespace HelpDeskVNext.Data.Migrations
                 {
                     table.PrimaryKey("PK_ApplicationUser", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ApplicationUser_Departamento_DepartamentoDepartamentoId",
-                        column: x => x.DepartamentoDepartamentoId,
+                        name: "FK_ApplicationUser_Departamento_DepartamentoId",
+                        column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
                         onDelete: ReferentialAction.Restrict);
@@ -128,32 +116,31 @@ namespace HelpDeskVNext.Data.Migrations
                 {
                     TicketId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AvariaId = table.Column<int>(nullable: false),
+                    CreatedByUtilizadorId = table.Column<string>(nullable: true),
                     DataConclusao = table.Column<DateTime>(nullable: true),
                     DataInsercao = table.Column<DateTime>(nullable: false),
-                    DepartamentoId = table.Column<int>(nullable: false),
+                    DepartamentoId = table.Column<int>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
                     EstadoId = table.Column<int>(nullable: false),
                     PrioridadeId = table.Column<int>(nullable: false),
                     TecnicoId = table.Column<string>(nullable: true),
-                    Titulo = table.Column<string>(nullable: true),
-                    Utilizador = table.Column<string>(nullable: true)
+                    Titulo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ticket", x => x.TicketId);
                     table.ForeignKey(
-                        name: "FK_Ticket_Avaria_AvariaId",
-                        column: x => x.AvariaId,
-                        principalTable: "Avaria",
-                        principalColumn: "AvariaId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Ticket_ApplicationUser_CreatedByUtilizadorId",
+                        column: x => x.CreatedByUtilizadorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ticket_Departamento_DepartamentoId",
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ticket_Estado_EstadoId",
                         column: x => x.EstadoId,
@@ -256,7 +243,6 @@ namespace HelpDeskVNext.Data.Migrations
             migrationBuilder.DropTable("AspNetUserClaims");
             migrationBuilder.DropTable("AspNetUserLogins");
             migrationBuilder.DropTable("AspNetUserRoles");
-            migrationBuilder.DropTable("Avaria");
             migrationBuilder.DropTable("Estado");
             migrationBuilder.DropTable("Prioridade");
             migrationBuilder.DropTable("AspNetRoles");

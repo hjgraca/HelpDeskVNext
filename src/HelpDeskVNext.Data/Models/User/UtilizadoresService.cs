@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 
@@ -12,26 +11,34 @@ namespace HelpDeskVNext.Data.Models.User
         private readonly ApplicationDbContext _applicationDbContext;
 
         public UtilizadoresService(ApplicationDbContext applicationDbContext)
-            : base(applicationDbContext)
+            :base (applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
 
         public IEnumerable<SelectListItem> GetList(string id = null)
         {
-            throw new NotImplementedException();
+            return new List<SelectListItem>
+                {
+                    new SelectListItem()
+                }.Union(Get().Select(x => new SelectListItem
+                {
+                    Text = x.Nome,
+                    Value = x.Id.ToString(),
+                    Selected = x.Id == id
+                }));
         }
 
-        public void Create(ApplicationUser ticket)
+        public void Create(ApplicationUser item)
         {
-            _applicationDbContext.Users.Add(ticket);
+            _applicationDbContext.Users.Add(item);
             SaveChanges();
         }
 
         public void Delete(string id)
         {
             var user = Get(id);
-            _applicationDbContext.Users.Remove(user);
+            _applicationDbContext.Remove(user);
             SaveChanges();
         }
 
@@ -42,13 +49,12 @@ namespace HelpDeskVNext.Data.Models.User
 
         public ApplicationUser Get(string id)
         {
-            var user = _applicationDbContext.Users.Include(x => x.Roles).Include(x => x.Departamento).FirstOrDefault(x => x.Id == id);
-            return user;
+            return _applicationDbContext.Users.Include(x => x.Roles).Include(x => x.Departamento).FirstOrDefault(x => x.Id == id);
         }
 
-        public void Update(ApplicationUser ticket)
+        public void Update(ApplicationUser item)
         {
-            _applicationDbContext.Users.Update(ticket);
+            var result = _applicationDbContext.Update(item);
             SaveChanges();
         }
     }

@@ -23,8 +23,8 @@ namespace HelpDeskVNext.Data.Models.User
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Acesso")]
-        public string Role { get; set; }
+        [Display(Name = "Acessos")]
+        public string[] Roles { get; set; }
 
         [Required]
         public string Nome { get; set; }
@@ -34,6 +34,8 @@ namespace HelpDeskVNext.Data.Models.User
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Departamento")]
-        public int Departamento { get; set; }
+        public int? Departamento { get; set; }
+
+        public bool Login { get; set; }
     }
 }

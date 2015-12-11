@@ -53,10 +53,10 @@ namespace HelpDeskVNext.Data.Models
             var user = await userManager.FindByNameAsync(options.DefaultAdminUserName);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = options.DefaultAdminUserName };
+                user = new ApplicationUser { UserName = options.DefaultAdminUserName, Email = options.DefaultAdminUserName, Nome = "Administrador"};
                 await userManager.CreateAsync(user, options.DefaultAdminPassword);
                 await userManager.AddToRoleAsync(user, adminRole);
-                await userManager.AddClaimAsync(user, new Claim("ManageTickets", "Allowed"));
+                //await userManager.AddClaimAsync(user, new Claim("ManageTickets", "Allowed"));
             }
         }
     }

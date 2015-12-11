@@ -18,7 +18,7 @@ namespace HelpDeskVNext.Data.Entitidades
         public virtual ApplicationUser CreatedByUtilizador { get; set; }
         public int PrioridadeId { get; set; }
         public virtual Prioridade Prioridade { get; set; }
-        public int DepartamentoId { get; set; }
+        public int? DepartamentoId { get; set; }
         public virtual Departamento Departamento { get; set; }
     }
 }

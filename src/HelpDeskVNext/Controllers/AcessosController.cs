@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using HelpDeskVNext.Data.Models;
 using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc;
 
@@ -10,10 +12,12 @@ namespace HelpDeskVNext.Controllers
     public class AcessosController : Controller
     {
         private readonly IService<IdentityRole, string> _roleService;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AcessosController(IService<IdentityRole, string> roleService)
+        public AcessosController(IService<IdentityRole, string> roleService, RoleManager<IdentityRole> roleManager)
         {
             _roleService = roleService;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -27,9 +31,11 @@ namespace HelpDeskVNext.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(IdentityRole role)
+        public async Task<IActionResult> Editar(IdentityRole role)
         {
-            _roleService.Update(role);
+            var r = await _roleManager.FindByIdAsync(role.Id);
+            r.Name = role.Name;
+            await _roleManager.UpdateAsync(r);
             return Redirect();
         }
 
@@ -39,16 +45,17 @@ namespace HelpDeskVNext.Controllers
         }
 
         [HttpPost]
-        public IActionResult Adicionar(IdentityRole role)
+        public async Task<IActionResult> Adicionar(IdentityRole role)
         {
-            _roleService.Create(role);
+            await _roleManager.CreateAsync(role);
             return Redirect();
         }
 
         [HttpPost]
-        public IActionResult Apagar(string id)
+        public async Task<IActionResult> Apagar(string id)
         {
-            _roleService.Delete(id);
+            var role = await _roleManager.FindByIdAsync(id);
+            await _roleManager.DeleteAsync(role);
             return Redirect();
         }
 

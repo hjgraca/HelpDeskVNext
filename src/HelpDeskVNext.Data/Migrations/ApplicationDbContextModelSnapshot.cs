@@ -57,7 +57,7 @@ namespace HelpDeskVNext.Data.Migrations
 
                     b.Property<DateTime>("DataInsercao");
 
-                    b.Property<int>("DepartamentoId");
+                    b.Property<int?>("DepartamentoId");
 
                     b.Property<string>("Descricao");
 
@@ -81,7 +81,7 @@ namespace HelpDeskVNext.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int?>("DepartamentoDepartamentoId");
+                    b.Property<int?>("DepartamentoId");
 
                     b.Property<string>("Email")
                         .HasAnnotation("MaxLength", 256);
@@ -233,7 +233,7 @@ namespace HelpDeskVNext.Data.Migrations
                 {
                     b.HasOne("HelpDeskVNext.Data.Entitidades.Departamento")
                         .WithMany()
-                        .HasForeignKey("DepartamentoDepartamentoId");
+                        .HasForeignKey("DepartamentoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>

@@ -1,4 +1,5 @@
-﻿using HelpDeskVNext.Data.Entitidades;
+﻿using System.Linq;
+using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
@@ -49,6 +50,11 @@ namespace HelpDeskVNext.Controllers
         {
             _departamentoService.Delete(id);
             return Redirect();
+        }
+
+        public IActionResult List(int id)
+        {
+            return View("Index", _departamentoService.Get().Where(x => x.DepartamentoId == id));
         }
 
         private IActionResult Redirect()

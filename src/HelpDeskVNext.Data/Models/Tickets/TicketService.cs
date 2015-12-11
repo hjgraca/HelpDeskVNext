@@ -36,7 +36,7 @@ namespace HelpDeskVNext.Data.Models.Tickets
 
         public IEnumerable<Ticket> Get()
         {
-            return _applicationDbContext.Tickets.Include(x => x.Prioridade);
+            return _applicationDbContext.Tickets;
         }
 
         public IEnumerable<SelectListItem> GetList(int id = 0)
@@ -46,6 +46,7 @@ namespace HelpDeskVNext.Data.Models.Tickets
 
         public void Create(Ticket ticket)
         {
+            
             _applicationDbContext.Tickets.Add(ticket);
             SaveChanges();
         }

@@ -40,15 +40,12 @@ namespace HelpDeskVNext.Data.Models.Tickets
 
         public IEnumerable<SelectListItem> GetList(int id = 0)
         {
-            return new List<SelectListItem>
-                {
-                    new SelectListItem()
-                }.Union(Get().Select(x => new SelectListItem
-                {
-                    Text = x.Designacao,
-                    Value = x.PrioridadeId.ToString(),
-                    Selected = x.PrioridadeId == id
-                }));
+            return Get().Select(x => new SelectListItem
+            {
+                Text = x.Designacao,
+                Value = x.PrioridadeId.ToString(),
+                Selected = x.PrioridadeId == id
+            });
         }
 
         public void Create(Prioridade prioridade)

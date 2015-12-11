@@ -57,10 +57,6 @@ namespace HelpDeskVNext
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            //services.AddEntityFramework()
-            //.AddSqlite()
-            //.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:SqliteConnectionString"]));
-
             // Add Identity services to the services container.
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
@@ -91,7 +87,7 @@ namespace HelpDeskVNext
             services.AddScoped<ITrello>(provider => new Trello(Configuration["Trello:ApiKey"]));
             services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<IProjectManager, ProjectManager>();
-            services.AddScoped<IService<ApplicationUser, string>, UtilizadoresService>();
+            //services.AddScoped<IService<ApplicationUser, string>, UtilizadoresService>();
             services.AddScoped<IService<Departamento, int>, DepartamentoService>();
             services.AddScoped<IService<IdentityRole, string>, RoleService>();
             services.AddScoped<IService<Ticket, int>, TicketService>();
