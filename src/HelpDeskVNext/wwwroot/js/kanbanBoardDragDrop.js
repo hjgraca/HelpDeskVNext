@@ -8,7 +8,7 @@
             });
 
             element.bind('dragstart', function (event) {
-                event.originalEvent.dataTransfer.setData("Text", JSON.stringify(dragData));                
+                event.originalEvent.dataTransfer.setData("Text", JSON.stringify(dragData));
             });            
         }
     };
@@ -43,7 +43,6 @@ helpdesk.kanbanBoardApp.directive('kanbanBoardDrop', function () {
                 element.removeClass(dragOverClass);                
                 var droppedData = JSON.parse(event.originalEvent.dataTransfer.getData('Text'));
                 $scope.onDrop(droppedData, element.attr('id'));
-
             });
 
             element.bind('dragleave', function (event) {

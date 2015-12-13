@@ -117,11 +117,13 @@ namespace HelpDeskVNext.Data.Migrations
                     TicketId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedByUtilizadorId = table.Column<string>(nullable: true),
+                    DataActualizacao = table.Column<DateTime>(nullable: false),
                     DataConclusao = table.Column<DateTime>(nullable: true),
                     DataInsercao = table.Column<DateTime>(nullable: false),
                     DepartamentoId = table.Column<int>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
                     EstadoId = table.Column<int>(nullable: false),
+                    Posicao = table.Column<int>(nullable: false),
                     PrioridadeId = table.Column<int>(nullable: false),
                     TecnicoId = table.Column<string>(nullable: true),
                     Titulo = table.Column<string>(nullable: true)

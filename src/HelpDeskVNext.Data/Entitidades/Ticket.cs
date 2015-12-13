@@ -20,5 +20,7 @@ namespace HelpDeskVNext.Data.Entitidades
         public virtual Prioridade Prioridade { get; set; }
         public int? DepartamentoId { get; set; }
         public virtual Departamento Departamento { get; set; }
+        public DateTime DataActualizacao { get; set; }
+        public int Posicao { get; set; }
     }
 }

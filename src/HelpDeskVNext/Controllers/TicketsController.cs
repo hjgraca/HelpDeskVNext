@@ -15,7 +15,7 @@ namespace HelpDeskVNext.Controllers
 
         public TicketsController(ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Tickets
@@ -64,7 +64,7 @@ namespace HelpDeskVNext.Controllers
                 ticket.CreatedByUtilizadorId = User.GetUserId();
                 ticket.DataInsercao = DateTime.Now;
                 ticket.EstadoId = 1;
-
+                ticket.DataActualizacao = DateTime.Now;
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
                 return RedirectToAction("Index");

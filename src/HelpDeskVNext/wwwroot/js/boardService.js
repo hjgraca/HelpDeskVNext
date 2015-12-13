@@ -31,7 +31,16 @@
             }, function (error) {
                 return $q.reject(error.data.Message);
             });
-    }
+    };
+
+    var updatePosicoes = function (values) {
+        return $http.post("/api/BoardWebApi/UpdatePosicoes", values)
+            .then(function (response) {
+                return response.status == 204;
+            }, function (error) {
+                return $q.reject(error.data.Message);
+            });
+    };
 
     var initialize = function () {
 
@@ -64,6 +73,7 @@
         getColumns: getColumns,
         canMoveTicket: canMoveTicket,
         updateTicket: updateTicket,
-        createTicket: createTicket
+        createTicket: createTicket,
+        updatePosicoes: updatePosicoes
     };
 });

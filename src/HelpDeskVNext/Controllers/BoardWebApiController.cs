@@ -33,6 +33,7 @@ namespace HelpDeskVNext.Controllers
                     Id = estado.EstadoId,
                     Nome = estado.Designacao,
                     Tickets = _context.Tickets.Where(x => x.EstadoId == estado.EstadoId)
+                    .OrderBy(x => x.Posicao)
                 };
             }
         }
@@ -85,6 +86,24 @@ namespace HelpDeskVNext.Controllers
                 else
                 {
                     throw;
+                }
+            }
+
+            return new HttpStatusCodeResult(StatusCodes.Status204NoContent);
+        }
+
+        [HttpPost]
+        [Route("api/BoardWebApi/UpdatePosicoes")]
+        public IActionResult UpdatePosicoes([FromBody]int[] ids)
+        {
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var ticket = _context.Tickets.FirstOrDefault(x => x.TicketId == ids[i]);
+                if (ticket != null)
+                {
+                    ticket.Posicao = i + 1;
+                    _context.Entry(ticket).State = EntityState.Modified;
+                    _context.SaveChanges();
                 }
             }
 

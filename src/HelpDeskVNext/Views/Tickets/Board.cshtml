@@ -7,10 +7,14 @@
     body {
         background-color: #026aa7;
     }
+    .ticketList {
+        padding: 0px;
+        min-height: 500px;
+    }
 </style>
 
 <h4>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createTicketModal">
         @ViewBag.CriarTicketTitle
     </button>
 </h4>
@@ -20,26 +24,29 @@
 
         <div ng-include="'/js/busymodal.html'" ng-show="isLoading"></div>
 
-        <div class="col-lg-3 panel panel-primary colStyle" id="{{col.Id}}" kanban-board-drop="over"
+        <div class="col-lg-3 panel panel-primary colStyle" id="{{col.Id}}" 
              ng-repeat="col in columns" ng-cloak>
             <div class="panel-heading" style="margin-bottom: 10px;">
                 <h3 class="panel-title">{{col.Nome}}</h3>
             </div>
-            <div class="thumbnail" draggable="true" kanban-board-dragg="ticket"
-                 ng-repeat="ticket in col.Tickets" style="margin-bottom: 10px;">
-                <div class="caption">
-                    <h5><strong>{{ticket.Titulo}}</strong></h5>
-                    <p>{{ticket.Descricao}}</p>
-                    <p>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-                            Editar
-                        </button>
-                    </p>
-                </div>
-            </div>
+            <ul data-as-sortable="dragControlListeners" class="ticketList" ng-model="col.Tickets">
+                <li ng-repeat="ticket in col.Tickets" ng-model="ticket" data-as-sortable-item class="as-sortable-item thumbnail" style="margin-bottom: 10px;">
+                    <div  class="caption" data-as-sortable-item-handle>
+                        <h5><strong>{{ticket.Titulo}}</strong></h5>
+                        <p>{{ticket.Descricao}}</p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" ng-click="editTicket(ticket)" data-target="#updateTicketModal">
+                                Editar
+                            </button>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            
         </div>
 
         @await Html.PartialAsync("_Create")
+        @await Html.PartialAsync("_Edit")
     </div>
 </div>
 
@@ -47,6 +54,8 @@
 
 @section Scripts {
     <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/ng-sortable/dist/ng-sortable.js"></script>
+
     <script src="~/lib/toastr/toastr.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/kanbanboarddragdrop.js"></script>

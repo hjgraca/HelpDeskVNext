@@ -8,7 +8,7 @@ using HelpDeskVNext.Data.Models;
 namespace HelpDeskVNext.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20151211145921_initial")]
+    [Migration("20151213173857_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,8 @@ namespace HelpDeskVNext.Data.Migrations
 
                     b.Property<string>("CreatedByUtilizadorId");
 
+                    b.Property<DateTime>("DataActualizacao");
+
                     b.Property<DateTime?>("DataConclusao");
 
                     b.Property<DateTime>("DataInsercao");
@@ -63,6 +65,8 @@ namespace HelpDeskVNext.Data.Migrations
                     b.Property<string>("Descricao");
 
                     b.Property<int>("EstadoId");
+
+                    b.Property<int>("Posicao");
 
                     b.Property<int>("PrioridadeId");
 

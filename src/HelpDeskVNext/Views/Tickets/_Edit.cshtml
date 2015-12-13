@@ -1,84 +1,66 @@
 @model HelpDeskVNext.Data.Entitidades.Ticket
 
-<form asp-action="_Edit">
-    <div class="form-horizontal">
-        <h4>Ticket</h4>
-        <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="TicketId" />
-        <div class="form-group">
-            <label asp-for="CreatedByUtilizadorId" class="control-label col-md-2">CreatedByUtilizadorId</label>
-            <div class="col-md-10">
-                <select asp-for="CreatedByUtilizadorId" class="form-control" />
-                <span asp-validation-for="CreatedByUtilizadorId" class="text-danger" />
+<div class="modal fade" id="updateTicketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar ticket</h4>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DataConclusao" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DataConclusao" class="form-control" />
-                <span asp-validation-for="DataConclusao" class="text-danger" />
+            <div class="modal-body">
+                <form>
+                    <div class="form-horizontal">
+                        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Titulo" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Titulo" class="form-control" ng-model="ticketData.titulo" />
+                                <span asp-validation-for="Titulo" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Descricao" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <textarea asp-for="Descricao" class="form-control" ng-model="ticketData.descricao"></textarea>
+                                <span asp-validation-for="Descricao" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Departamento" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="DepartamentoId" asp-items="ViewBag.Departamentos" ng-model="formData.departamentoId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Prioridade" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="PrioridadeId" asp-items="ViewBag.Prioridades" ng-model="formData.prioridadeId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TecnicoId" class="control-label col-md-2">TecnicoId</label>
+                            <div class="col-md-10">
+                                <select asp-for="TecnicoId" class="form-control" />
+                                <span asp-validation-for="TecnicoId" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EstadoId" class="control-label col-md-2">EstadoId</label>
+                            <div class="col-md-10">
+                                <select asp-for="EstadoId" class="form-control" />
+                                <span asp-validation-for="EstadoId" class="text-danger" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DataInsercao" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DataInsercao" class="form-control" />
-                <span asp-validation-for="DataInsercao" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DepartamentoId" class="control-label col-md-2">DepartamentoId</label>
-            <div class="col-md-10">
-                <select asp-for="DepartamentoId" class="form-control" />
-                <span asp-validation-for="DepartamentoId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Descricao" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="EstadoId" class="control-label col-md-2">EstadoId</label>
-            <div class="col-md-10">
-                <select asp-for="EstadoId" class="form-control" />
-                <span asp-validation-for="EstadoId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="PrioridadeId" class="control-label col-md-2">PrioridadeId</label>
-            <div class="col-md-10">
-                <select asp-for="PrioridadeId" class="form-control" />
-                <span asp-validation-for="PrioridadeId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="TecnicoId" class="control-label col-md-2">TecnicoId</label>
-            <div class="col-md-10">
-                <select asp-for="TecnicoId" class="form-control" />
-                <span asp-validation-for="TecnicoId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Titulo" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" id="criarTicket" ng-click="updateTicket()" class="btn btn-primary">Gravar</button>
             </div>
         </div>
     </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
