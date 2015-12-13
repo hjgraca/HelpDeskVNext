@@ -1,0 +1,57 @@
+@model HelpDeskVNext.Data.Entitidades.Ticket
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Ticket</h4>
+        <hr />
+        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Titulo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descricao" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Departamento" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="DepartamentoId" asp-items="ViewBag.Departamentos" class ="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Prioridade" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="PrioridadeId" asp-items="ViewBag.Prioridades" class ="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

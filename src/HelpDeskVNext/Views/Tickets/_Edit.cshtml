@@ -1,0 +1,88 @@
+@model HelpDeskVNext.Data.Entitidades.Ticket
+
+<form asp-action="_Edit">
+    <div class="form-horizontal">
+        <h4>Ticket</h4>
+        <hr />
+        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="TicketId" />
+        <div class="form-group">
+            <label asp-for="CreatedByUtilizadorId" class="control-label col-md-2">CreatedByUtilizadorId</label>
+            <div class="col-md-10">
+                <select asp-for="CreatedByUtilizadorId" class="form-control" />
+                <span asp-validation-for="CreatedByUtilizadorId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DataConclusao" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DataConclusao" class="form-control" />
+                <span asp-validation-for="DataConclusao" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DataInsercao" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DataInsercao" class="form-control" />
+                <span asp-validation-for="DataInsercao" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DepartamentoId" class="control-label col-md-2">DepartamentoId</label>
+            <div class="col-md-10">
+                <select asp-for="DepartamentoId" class="form-control" />
+                <span asp-validation-for="DepartamentoId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descricao" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EstadoId" class="control-label col-md-2">EstadoId</label>
+            <div class="col-md-10">
+                <select asp-for="EstadoId" class="form-control" />
+                <span asp-validation-for="EstadoId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrioridadeId" class="control-label col-md-2">PrioridadeId</label>
+            <div class="col-md-10">
+                <select asp-for="PrioridadeId" class="form-control" />
+                <span asp-validation-for="PrioridadeId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TecnicoId" class="control-label col-md-2">TecnicoId</label>
+            <div class="col-md-10">
+                <select asp-for="TecnicoId" class="form-control" />
+                <span asp-validation-for="TecnicoId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Titulo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

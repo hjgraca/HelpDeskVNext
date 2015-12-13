@@ -1,0 +1,57 @@
+@model HelpDeskVNext.Data.Entitidades.Ticket
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">@ViewBag.CriarTicketTitle</h4>
+            </div>
+            <div class="modal-body">
+                
+                <form id="criarTicketForm">
+                    <div class="form-horizontal">
+                        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Titulo" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Titulo" class="form-control" ng-model="formData.titulo"/>
+                                <span asp-validation-for="Titulo" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Descricao" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <textarea asp-for="Descricao" class="form-control" ng-model="formData.descricao"></textarea>
+                                <span asp-validation-for="Descricao" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Departamento" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="DepartamentoId" asp-items="ViewBag.Departamentos" ng-model="formData.departamentoId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Prioridade" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="PrioridadeId" asp-items="ViewBag.Prioridades" ng-model="formData.prioridadeId" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" id="criarTicket" ng-click="createTicket()" class="btn btn-primary">Gravar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
