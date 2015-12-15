@@ -1,36 +1,32 @@
-﻿@model IEnumerable<HelpDeskVNext.Data.Entitidades.Prioridade>
+@model IEnumerable<HelpDeskVNext.Data.Entitidades.Prioridade>
 
+@{
+    ViewData["Title"] = "Index";
+}
 
-<h2>Gerir prioridades</h2>
-<hr />
-<br />
-<div>
-    <a class="btn btn-default" asp-controller="Prioridades" asp-action="Adicionar">Adicionar prioridade</a>
-</div>
-<br/>
-<div class="panel panel-default">
+<h2>Index</h2>
 
-    <!-- Table -->
-    <table class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var prioridade in Model)
-        {
-            <tr>
-                <td>@prioridade.Designacao</td>
-                <td class="td-actions">
-                    <a class="btn btn-warning btn-xs" asp-controller="Prioridades" asp-action="Editar" asp-route-id="@prioridade.PrioridadeId">Editar</a>
-                    <form asp-controller="Prioridades" asp-action="Apagar" method="post" asp-route-id="@prioridade.PrioridadeId" class="form-horizontal" role="form">
-                        <input type="submit" class="btn btn-danger btn-xs" value="Apagar" />
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Designacao)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Designacao)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.PrioridadeId">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.PrioridadeId">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.PrioridadeId">Delete</a>
+        </td>
+    </tr>
+}
+</table>

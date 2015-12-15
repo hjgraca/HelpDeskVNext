@@ -21,10 +21,14 @@ namespace HelpDeskVNext.Controllers
         // GET: Tickets
         public IActionResult Index()
         {
-            var applicationDbContext = _context.Tickets.Include(t => t.CreatedByUtilizador).Include(t => t.Departamento).Include(t => t.Estado).Include(t => t.Prioridade).Include(t => t.Tecnico);
-            //return View(applicationDbContext.ToList());
             ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome");
             ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao");
+            ViewBag.Estados = new SelectList(_context.Estados, "EstadoId", "Designacao");
+
+            var role = (from r in _context.Roles where r.Name == "Tecnico" select r).FirstOrDefault();
+            var users = _context.Users.Include(x => x.Roles).ToList();
+
+            ViewBag.Tecnicos = new SelectList(users.Where(x => x.Roles.Select(y => y.RoleId).Contains(role.Id)), "Id", "Nome");
 
             return View("Board");
         }

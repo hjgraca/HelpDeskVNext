@@ -1,36 +1,32 @@
-﻿@model IEnumerable<HelpDeskVNext.Data.Entitidades.Departamento>
+@model IEnumerable<HelpDeskVNext.Data.Entitidades.Departamento>
 
+@{
+    ViewData["Title"] = "Index";
+}
 
-<h2>Gerir departamentos</h2>
-<hr />
-<br />
-<div>
-    <a class="btn btn-default" asp-controller="Departamentos" asp-action="Adicionar">Adicionar departamento</a>
-</div>
-<br/>
-<div class="panel panel-default">
+<h2>Index</h2>
 
-    <!-- Table -->
-    <table class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var departamento in Model)
-        {
-            <tr>
-                <td>@departamento.Nome</td>
-                <td class="td-actions">
-                    <a class="btn btn-warning btn-xs" asp-controller="Departamentos" asp-action="Editar" asp-route-id="@departamento.DepartamentoId">Editar</a>
-                    <form asp-controller="Departamentos" asp-action="Apagar" method="post" asp-route-id="@departamento.DepartamentoId" class="form-horizontal" role="form">
-                        <input type="submit" class="btn btn-danger btn-xs" value="Apagar" />
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.DepartamentoId">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.DepartamentoId">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.DepartamentoId">Delete</a>
+        </td>
+    </tr>
+}
+</table>

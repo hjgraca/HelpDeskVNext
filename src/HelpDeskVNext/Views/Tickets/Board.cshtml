@@ -1,48 +1,86 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewBag.Title = "Tickets";
     ViewBag.CriarTicketTitle = "Criar ticket";
 }
+@inject IJsonHelper Json;
 
 <style>
     body {
         background-color: #026aa7;
     }
+
     .ticketList {
         padding: 0px;
-        min-height: 500px;
+        min-height: 50px;
+    }
+
+    .white {
+        background-color: white;
+    }
+
+    .filter-col {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 </style>
 
-<h4>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createTicketModal">
-        @ViewBag.CriarTicketTitle
-    </button>
-</h4>
 <div class="container-fluid" style="margin: 0 auto 0 auto;" ng-app="kanbanBoardApp">
-       
+
     <div class="row" ng-controller="boardCtrl">
+
+        <div id="filter-panel" class="filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-inline">
+                        <div class="form-group filter-col">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createTicketModal" title="Criar ticket">
+                                Criar Ticket
+                            </button>
+                        </div>
+
+                        <div class="form-group filter-col">
+                            <div class="input-group">
+                                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+                                <input type="text" ng-model="searchText" class="form-control" placeholder="Pesquisar tickets" aria-describedby="basic-addon1">
+                            </div>
+                        </div><!-- form group [search] -->
+                        <div class="form-group filter-col">
+                            <div class="checkbox" style="margin-left: 10px; margin-right: 10px;">
+                                <label><input type="checkbox" ng-model="meuTicketApenas"> Mostrar apenas os meus tickets</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div ng-include="'/js/busymodal.html'" ng-show="isLoading"></div>
 
-        <div class="col-lg-3 panel panel-primary colStyle" id="{{col.Id}}" 
+        <div class="col-lg-3 panel panel-primary colStyle" id="{{col.Id}}"
              ng-repeat="col in columns" ng-cloak>
             <div class="panel-heading" style="margin-bottom: 10px;">
                 <h3 class="panel-title">{{col.Nome}}</h3>
             </div>
-            <ul data-as-sortable="dragControlListeners" class="ticketList" ng-model="col.Tickets">
-                <li ng-repeat="ticket in col.Tickets" ng-model="ticket" data-as-sortable-item class="as-sortable-item thumbnail" style="margin-bottom: 10px;">
-                    <div  class="caption" data-as-sortable-item-handle>
+            <ul data-as-sortable="dragControlListeners" ng-class="col.Tickets == 0 ? 'ticketList white' : 'ticketList'" ng-model="col.Tickets">
+                <li ng-repeat="ticket in col.Tickets | filter:searchText | filter:meusTicketsFilter" ng-model="ticket" data-as-sortable-item class="as-sortable-item thumbnail" style="margin-bottom: 10px;">
+                    <div class="caption" data-as-sortable-item-handle>
                         <h5><strong>{{ticket.Titulo}}</strong></h5>
                         <p>{{ticket.Descricao}}</p>
                         <p>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" ng-click="editTicket(ticket)" data-target="#updateTicketModal">
-                                Editar
+                            <button type="button" title="Editar" class="btn btn-primary btn-sm" ng-click="open(ticket)">
+                                <span class="glyphicon glyphicon-pencil"></span>
                             </button>
+                            <button type="button" title="Apagar" class="btn btn-primary btn-sm" ng-click="delete(ticket)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+
                         </p>
                     </div>
                 </li>
             </ul>
-            
+
         </div>
 
         @await Html.PartialAsync("_Create")
@@ -54,11 +92,19 @@
 
 @section Scripts {
     <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/lib/ng-sortable/dist/ng-sortable.js"></script>
-
+    <script src="~/lib/ng-sortable/dist/ng-sortable.min.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="~/lib/toastr/toastr.js"></script>
+    <script src="~/lib/underscore/underscore-min.js"></script>
     <script src="~/js/main.js"></script>
-    <script src="~/js/kanbanboarddragdrop.js"></script>
     <script src="~/js/boardservice.js"></script>
     <script src="~/js/boardctrl.js"></script>
+
+    <script>
+        helpdesk.kanbanBoardApp.value('userId', '@User.GetUserId()');
+        helpdesk.kanbanBoardApp.value('departamentos', '@Html.Raw(Json.Serialize(ViewBag.Departamentos))');
+        helpdesk.kanbanBoardApp.value('estados', '@Html.Raw(Json.Serialize(ViewBag.Estados))');
+        helpdesk.kanbanBoardApp.value('tecnicos', '@Html.Raw(Json.Serialize(ViewBag.Tecnicos))');
+        helpdesk.kanbanBoardApp.value('prioridades', '@Html.Raw(Json.Serialize(ViewBag.Prioridades))');
+    </script>
 }

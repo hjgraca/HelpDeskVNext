@@ -16,7 +16,7 @@ namespace HelpDeskVNext.ViewModels.Account
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar-se de mim?")]
         public bool RememberMe { get; set; }
     }
 }

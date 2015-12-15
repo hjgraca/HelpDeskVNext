@@ -71,10 +71,19 @@ namespace HelpDeskVNext.Controllers
             return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }
 
-        [HttpPost]
+        [ActionName("Apagar")]
         public async Task<IActionResult> Apagar(string id)
         {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
             var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
             await _userManager.DeleteAsync(user);
             return Redirect();
         }

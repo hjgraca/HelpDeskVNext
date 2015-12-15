@@ -28,15 +28,22 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Prioridade" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <select asp-for="PrioridadeId" asp-items="ViewBag.Prioridades" ng-model="formData.prioridadeId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="Departamento" class="col-md-2 control-label"></label>
                             <div class="col-md-10">
                                 <select asp-for="DepartamentoId" asp-items="ViewBag.Departamentos" ng-model="formData.departamentoId" class="form-control"></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Prioridade" class="col-md-2 control-label"></label>
+                            <label asp-for="TecnicoId" class="control-label col-md-2">Tecnico</label>
                             <div class="col-md-10">
-                                <select asp-for="PrioridadeId" asp-items="ViewBag.Prioridades" ng-model="formData.prioridadeId" class="form-control"></select>
+                                <select asp-for="TecnicoId" asp-items="ViewBag.Tecnicos" ng-model="formData.tecnicoId" class="form-control"></select>
+                                <span asp-validation-for="TecnicoId" class="text-danger" />
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,11 @@ namespace HelpDeskVNext.Controllers
                 {
                     Id = estado.EstadoId,
                     Nome = estado.Designacao,
-                    Tickets = _context.Tickets.Where(x => x.EstadoId == estado.EstadoId)
+                    Tickets = _context.Tickets
+                                .Include(x => x.Departamento)
+                                .Include(x => x.Tecnico)
+                                .Include(x => x.Prioridade)
+                                .Where(x => x.EstadoId == estado.EstadoId)
                     .OrderBy(x => x.Posicao)
                 };
             }
@@ -93,7 +97,7 @@ namespace HelpDeskVNext.Controllers
         }
 
         [HttpPost]
-        [Route("api/BoardWebApi/UpdatePosicoes")]
+        [Route("[action]")]
         public IActionResult UpdatePosicoes([FromBody]int[] ids)
         {
             for (int i = 0; i < ids.Length; i++)

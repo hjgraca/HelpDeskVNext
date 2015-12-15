@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using HelpDeskVNext.Data.Entitidades;
+﻿using HelpDeskVNext.Data.Entitidades;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,8 +10,6 @@ using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Data.Models.Departamentos;
 using HelpDeskVNext.Data.Models.Roles;
 using HelpDeskVNext.Data.Models.Tickets;
-using HelpDeskVNext.Data.Models.User;
-using HelpDeskVNext.Services;
 using HelpDeskVNext.Services.ProjectManager;
 using HelpDeskVNext.Services.SmsProvider;
 using TrelloNet;
@@ -26,8 +23,8 @@ namespace HelpDeskVNext
         {
             // Setup configuration sources.
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json");
-                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
@@ -97,12 +94,9 @@ namespace HelpDeskVNext
         // Configure is called after ConfigureServices is called.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.MinimumLevel = LogLevel.Information;
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            // Configure the HTTP request pipeline.
-
+            
             // Add Application Insights to the request pipeline to track HTTP request telemetry data.
             app.UseApplicationInsightsRequestTelemetry();
 

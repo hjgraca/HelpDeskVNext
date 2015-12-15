@@ -4,9 +4,11 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
+using Microsoft.AspNet.Authorization;
 
 namespace HelpDeskVNext.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class EstadosController : Controller
     {
         private ApplicationDbContext _context;

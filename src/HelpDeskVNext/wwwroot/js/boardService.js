@@ -14,8 +14,10 @@
     };
 
     var updateTicket = function (ticket, targetColIdVal) {
-        ticket.Estado = null;
-        ticket.EstadoId = targetColIdVal;
+        if (targetColIdVal) {
+            ticket.Estado = null;
+            ticket.EstadoId = targetColIdVal;
+        }
         return $http.put("/api/BoardWebApi/" + ticket.TicketId, ticket)
             .then(function (response) {
                 return response.status == 204;
@@ -37,6 +39,15 @@
         return $http.post("/api/BoardWebApi/UpdatePosicoes", values)
             .then(function (response) {
                 return response.status == 204;
+            }, function (error) {
+                return $q.reject(error.data.Message);
+            });
+    };
+
+    var deleteTicket = function (id) {
+        return $http.delete("/api/BoardWebApi/" + id)
+            .then(function (response) {
+                return response.status == 200;
             }, function (error) {
                 return $q.reject(error.data.Message);
             });
@@ -74,6 +85,7 @@
         canMoveTicket: canMoveTicket,
         updateTicket: updateTicket,
         createTicket: createTicket,
-        updatePosicoes: updatePosicoes
+        updatePosicoes: updatePosicoes,
+        deleteTicket: deleteTicket
     };
 });
