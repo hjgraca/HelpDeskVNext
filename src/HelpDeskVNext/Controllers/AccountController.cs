@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Data.Models.User;
@@ -6,6 +7,7 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using HelpDeskVNext.ViewModels.Account;
+using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace HelpDeskVNext.Controllers
@@ -15,15 +17,17 @@ namespace HelpDeskVNext.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -77,6 +81,7 @@ namespace HelpDeskVNext.Controllers
         [AllowAnonymous]
         public IActionResult Register(bool login = false)
         {
+            ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome");
             return View();
         }
 

@@ -1,5 +1,4 @@
-﻿using HelpDeskVNext.Data.Entitidades;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -7,12 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HelpDeskVNext.Data.Models;
-using HelpDeskVNext.Data.Models.Departamentos;
 using HelpDeskVNext.Data.Models.Roles;
-using HelpDeskVNext.Data.Models.Tickets;
-using HelpDeskVNext.Services.ProjectManager;
 using HelpDeskVNext.Services.SmsProvider;
-using TrelloNet;
 using Twilio;
 
 namespace HelpDeskVNext
@@ -81,14 +76,8 @@ namespace HelpDeskVNext
         {
             services.AddScoped(provider => new TwilioRestClient(
                 Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"]));
-            services.AddScoped<ITrello>(provider => new Trello(Configuration["Trello:ApiKey"]));
             services.AddScoped<ISmsService, SmsService>();
-            services.AddScoped<IProjectManager, ProjectManager>();
-            //services.AddScoped<IService<ApplicationUser, string>, UtilizadoresService>();
-            services.AddScoped<IService<Departamento, int>, DepartamentoService>();
             services.AddScoped<IService<IdentityRole, string>, RoleService>();
-            services.AddScoped<IService<Ticket, int>, TicketService>();
-            services.AddScoped<IService<Prioridade, int>, PrioridadeService>();
         }
 
         // Configure is called after ConfigureServices is called.

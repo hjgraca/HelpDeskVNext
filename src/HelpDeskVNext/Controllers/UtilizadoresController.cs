@@ -1,6 +1,4 @@
-﻿using HelpDeskVNext.Data.Entitidades;
-using HelpDeskVNext.Data.Models;
-using HelpDeskVNext.Data.Models.Roles;
+﻿using HelpDeskVNext.Data.Models;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc;
@@ -18,11 +16,14 @@ namespace HelpDeskVNext.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public UtilizadoresController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager )
+        public UtilizadoresController(UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         // GET: /<controller>/
@@ -37,10 +38,13 @@ namespace HelpDeskVNext.Controllers
             {
                 Text = x.Name,
                 Value = x.Name
-            });
+            }).ToList();
 
             var model = _userManager.Users.Include(x => x.Departamento).FirstOrDefault(x => x.Id == id);
             model.RoleNames = await _userManager.GetRolesAsync(model);
+
+            ViewBag.Departamentos = new SelectList(_context.Departamentos.ToList(), "DepartamentoId", "Nome", model.DepartamentoId);
+
             return View(model);
         }
 
@@ -50,17 +54,15 @@ namespace HelpDeskVNext.Controllers
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
-                user.DepartamentoId = editarUser.Departamento.DepartamentoId;
+                user.DepartamentoId = editarUser.DepartamentoId;
                 user.Nome = editarUser.Nome;
                 user.Email = editarUser.Email;
                 user.PhoneNumber = editarUser.PhoneNumber;
+
                 var roles = await _userManager.GetRolesAsync(user);
-
-                var t1 = _userManager.RemoveFromRolesAsync(user, roles);
-                var t2 = _userManager.AddToRolesAsync(user, editarUser.RoleNames);
-                var t3 = _userManager.UpdateAsync(user);
-
-                await Task.WhenAll(t1, t2, t3);
+                await _userManager.RemoveFromRolesAsync(user, roles);
+                await _userManager.AddToRolesAsync(user, editarUser.RoleNames);
+                await _userManager.UpdateAsync(user);                
             }
             
             return Redirect();

@@ -51,7 +51,6 @@ namespace HelpDeskVNext.Controllers
             return Redirect();
         }
 
-        [HttpPost]
         public async Task<IActionResult> Apagar(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);

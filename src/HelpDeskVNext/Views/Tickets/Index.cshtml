@@ -1,0 +1,87 @@
+@model IEnumerable<HelpDeskVNext.Data.Entitidades.Ticket>
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h2>Tickets</h2>
+
+<p>
+    <a asp-action="Create">Criar novo ticket</a>
+</p>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prioridade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tecnico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInsercao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataActualizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataConclusao)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado.Designacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prioridade.Designacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamento.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tecnico.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInsercao)
+        </td>
+        <td>
+            @if (item.DataActualizacao > DateTime.MinValue)
+            {
+                @Html.DisplayFor(modelItem => item.DataActualizacao)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataConclusao)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.TicketId">Editar</a> |
+            <a asp-action="Details" asp-route-id="@item.TicketId">Detalhes</a> |
+            <a asp-action="Delete" asp-route-id="@item.TicketId">Apagar</a>
+        </td>
+    </tr>
+}
+</table>

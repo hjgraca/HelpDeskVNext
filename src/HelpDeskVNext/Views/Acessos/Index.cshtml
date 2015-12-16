@@ -7,32 +7,26 @@
 <div>
     <a class="btn btn-default" asp-controller="Acessos" asp-action="Adicionar">Adicionar acesso</a>
 </div>
-<br />
-<div class="panel panel-default">
-
-    <!-- Table -->
-    <table class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Utilizadores</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var acesso in Model)
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Utilizadores</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var acesso in Model)
             {
-                <tr>
-                    <td>@acesso.Name</td>
-                    <td><a asp-controller="Utilizadores" asp-action="List" asp-route-id="@acesso.Name">@acesso.Users.Count</a></td>
-                    <td class="td-actions">
-                        <a class="btn btn-warning btn-xs" asp-controller="Acessos" asp-action="Editar" asp-route-id="@acesso.Id">Editar</a>
-                        <form asp-controller="Acessos" asp-action="Apagar" method="post" asp-route-id="@acesso.Id" class="form-horizontal" role="form">
-                            <input type="submit" class="btn btn-danger btn-xs" value="Apagar" />
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            <tr>
+                <td>@acesso.Name</td>
+                <td><a asp-controller="Utilizadores" asp-action="List" asp-route-id="@acesso.Name">@acesso.Users.Count</a></td>
+                <td class="td-actions">
+                    <a asp-action="Editar" asp-route-id="@acesso.Id">Editar</a> |
+                    <a asp-action="Detalhe" asp-route-id="@acesso.Id">Detalhes</a> |
+                    <a asp-action="Apagar" asp-route-id="@acesso.Id">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

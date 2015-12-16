@@ -15,25 +15,17 @@ namespace HelpDeskVNext.Controllers
 
         public TicketsController(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context;    
         }
 
-        // GET: Tickets
+        // GET: Tickets1
         public IActionResult Index()
         {
-            ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome");
-            ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao");
-            ViewBag.Estados = new SelectList(_context.Estados, "EstadoId", "Designacao");
-
-            var role = (from r in _context.Roles where r.Name == "Tecnico" select r).FirstOrDefault();
-            var users = _context.Users.Include(x => x.Roles).ToList();
-
-            ViewBag.Tecnicos = new SelectList(users.Where(x => x.Roles.Select(y => y.RoleId).Contains(role.Id)), "Id", "Nome");
-
-            return View("Board");
+            var applicationDbContext = _context.Tickets.Where(x => x.CreatedByUtilizadorId == User.GetUserId()).Include(t => t.CreatedByUtilizador).Include(t => t.Departamento).Include(t => t.Estado).Include(t => t.Prioridade).Include(t => t.Tecnico);
+            return View(applicationDbContext.ToList());
         }
 
-        // GET: Tickets/Details/5
+        // GET: Tickets1/Details/5
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -41,7 +33,8 @@ namespace HelpDeskVNext.Controllers
                 return HttpNotFound();
             }
 
-            Ticket ticket = _context.Tickets.Single(m => m.TicketId == id);
+            Ticket ticket = _context.Tickets.Include(t => t.Departamento).Include(t => t.Estado).Include(t => t.Prioridade).Include(t => t.Tecnico).Single(m => m.TicketId == id);
+
             if (ticket == null)
             {
                 return HttpNotFound();
@@ -50,15 +43,16 @@ namespace HelpDeskVNext.Controllers
             return View(ticket);
         }
 
-        // GET: Tickets/Create
+        // GET: Tickets1/Create
         public IActionResult Create()
         {
             ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome");
             ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao");
+
             return View();
         }
 
-        // POST: Tickets/Create
+        // POST: Tickets1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Ticket ticket)
@@ -66,22 +60,32 @@ namespace HelpDeskVNext.Controllers
             if (ModelState.IsValid)
             {
                 ticket.CreatedByUtilizadorId = User.GetUserId();
-                ticket.DataInsercao = DateTime.Now;
                 ticket.EstadoId = 1;
-                ticket.DataActualizacao = DateTime.Now;
+                ticket.DataInsercao = DateTime.Now;
+
+                GetRandomTec(ticket);
+
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["CreatedByUtilizadorId"] = new SelectList(_context.Users, "Id", "CreatedByUtilizador", ticket.CreatedByUtilizadorId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "Departamento", ticket.DepartamentoId);
-            ViewData["EstadoId"] = new SelectList(_context.Estados, "EstadoId", "Estado", ticket.EstadoId);
-            ViewData["PrioridadeId"] = new SelectList(_context.Prioridades, "PrioridadeId", "Prioridade", ticket.PrioridadeId);
-            ViewData["TecnicoId"] = new SelectList(_context.Users, "Id", "Tecnico", ticket.TecnicoId);
+            
+            ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome", ticket.DepartamentoId);
+            ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao", ticket.PrioridadeId);
+
             return View(ticket);
         }
 
-        // GET: Tickets/Edit/5
+        private void GetRandomTec(Ticket ticket)
+        {
+            var rnd = new Random();
+            // so assigna tickets a user do departamento
+            var users = _context.Users.Where(x => x.DepartamentoId == ticket.DepartamentoId).ToList();
+            var index = rnd.Next(users.Count);
+            ticket.TecnicoId = users[index].Id;
+        }
+
+        // GET: Tickets1/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,55 +98,33 @@ namespace HelpDeskVNext.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["CreatedByUtilizadorId"] = new SelectList(_context.Users, "Id", "CreatedByUtilizador", ticket.CreatedByUtilizadorId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "Departamento", ticket.DepartamentoId);
-            ViewData["EstadoId"] = new SelectList(_context.Estados, "EstadoId", "Estado", ticket.EstadoId);
-            ViewData["PrioridadeId"] = new SelectList(_context.Prioridades, "PrioridadeId", "Prioridade", ticket.PrioridadeId);
-            ViewData["TecnicoId"] = new SelectList(_context.Users, "Id", "Tecnico", ticket.TecnicoId);
+            ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome", ticket.DepartamentoId);
+            ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao", ticket.PrioridadeId);
+
             return View(ticket);
         }
 
-        // POST: Tickets/Edit/5
+        // POST: Tickets1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                ticket.DataActualizacao = DateTime.Now;
                 _context.Update(ticket);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["CreatedByUtilizadorId"] = new SelectList(_context.Users, "Id", "CreatedByUtilizador", ticket.CreatedByUtilizadorId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "Departamento", ticket.DepartamentoId);
-            ViewData["EstadoId"] = new SelectList(_context.Estados, "EstadoId", "Estado", ticket.EstadoId);
-            ViewData["PrioridadeId"] = new SelectList(_context.Prioridades, "PrioridadeId", "Prioridade", ticket.PrioridadeId);
-            ViewData["TecnicoId"] = new SelectList(_context.Users, "Id", "Tecnico", ticket.TecnicoId);
+
+            ViewBag.Departamentos = new SelectList(_context.Departamentos, "DepartamentoId", "Nome", ticket.DepartamentoId);
+            ViewBag.Prioridades = new SelectList(_context.Prioridades, "PrioridadeId", "Designacao", ticket.PrioridadeId);
             return View(ticket);
         }
 
-        // GET: Tickets/Delete/5
+        // GET: Tickets1/Delete/5
         [ActionName("Delete")]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-
-            Ticket ticket = _context.Tickets.Single(m => m.TicketId == id);
-            if (ticket == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(ticket);
-        }
-
-        // POST: Tickets/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult Delete(int id)
         {
             Ticket ticket = _context.Tickets.Single(m => m.TicketId == id);
             _context.Tickets.Remove(ticket);

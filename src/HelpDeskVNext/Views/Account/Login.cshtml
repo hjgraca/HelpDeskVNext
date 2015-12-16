@@ -1,8 +1,10 @@
 ﻿@using System.Collections.Generic
 @using Microsoft.AspNet.Http
 @using Microsoft.AspNet.Http.Authentication
+@using Microsoft.Data.Entity
 @model LoginViewModel
 @inject SignInManager<HelpDeskVNext.Data.Models.ApplicationUser> SignInManager
+@inject UserManager<HelpDeskVNext.Data.Models.ApplicationUser> Usermanager
 
 @{
     ViewData["Title"] = "Log in";
@@ -44,15 +46,26 @@
                     </div>
                 </div>
                 <p>
-                    <a asp-action="Register">Register as a new user?</a>
+                    <a asp-action="Register">Registar como novo utilizador?</a>
                 </p>
                 <p>
-                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                    <a asp-action="ForgotPassword">Esqueceu a password?</a>
                 </p>
             </form>
         </section>
     </div>
-    
+
+    <environment names="Development">
+        <div class="col-md-4">
+            <div>
+                <h3>Logins teste</h3>
+                @foreach (var user in Usermanager.Users)
+            {
+                    <p>Email: @user.Email Telefone: @user.PhoneNumber</p>
+                }
+            </div>
+        </div>
+    </environment>
 </div>
 
 @section Scripts {

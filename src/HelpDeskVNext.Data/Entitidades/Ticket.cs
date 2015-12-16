@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using HelpDeskVNext.Data.Models;
 
 namespace HelpDeskVNext.Data.Entitidades
@@ -6,7 +7,9 @@ namespace HelpDeskVNext.Data.Entitidades
     public class Ticket
     {
         public int TicketId { get; set; }
+        [Required]
         public string Titulo { get; set; }
+        [Required]
         public string Descricao { get; set; }
         public DateTime DataInsercao { get; set; }
         public DateTime? DataConclusao { get; set; }
