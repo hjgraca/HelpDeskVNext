@@ -8,7 +8,6 @@
 
   "dependencies": {
     "HelpDeskVNext.Data": "1.0.0-*",
-    "HelpDeskVNext.Services": "1.0.0-*",
     "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
@@ -29,7 +28,7 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "TrelloNet": "0.6.2"
+    "Twilio": "4.4.1"
   },
 
   "commands": {

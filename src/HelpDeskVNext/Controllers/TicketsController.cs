@@ -6,9 +6,11 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
+using Microsoft.AspNet.Authorization;
 
 namespace HelpDeskVNext.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,6 +27,7 @@ namespace HelpDeskVNext.Controllers
             return View(applicationDbContext.ToList());
         }
 
+        [AllowAnonymous]
         // GET: Tickets1/Details/5
         public IActionResult Details(int? id)
         {

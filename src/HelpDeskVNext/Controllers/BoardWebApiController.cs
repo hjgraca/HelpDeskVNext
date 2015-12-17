@@ -16,10 +16,12 @@ namespace HelpDeskVNext.Controllers
     public class BoardWebApiController : Controller
     {
         private ApplicationDbContext _context;
+        private readonly ISmsService _smsService;
 
-        public BoardWebApiController(ApplicationDbContext context)
+        public BoardWebApiController(ApplicationDbContext context, ISmsService smsService)
         {
             _context = context;
+            _smsService = smsService;
         }
 
         // GET: api/BoardWebApi
@@ -156,16 +158,42 @@ namespace HelpDeskVNext.Controllers
                 return HttpBadRequest(ModelState);
             }
 
-            Ticket ticket = _context.Tickets.Single(m => m.TicketId == id);
+            Ticket ticket = _context.Tickets.Include(x => x.CreatedByUtilizador).Include(x => x.Tecnico).Single(m => m.TicketId == id);
             if (ticket == null)
             {
                 return HttpNotFound();
             }
 
+            var phone = ticket.CreatedByUtilizador.PhoneNumber;
+            var user = ticket.CreatedByUtilizador.Nome;
+            var tec = ticket.Tecnico.Nome;
+            var tId = ticket.TicketId;
+
             _context.Tickets.Remove(ticket);
             _context.SaveChanges();
 
+            _smsService.SendMessage(phone, $"Ola {user}, o tecnico {tec} apagou o seu ticket do sistema #{tId}.");
+
             return Ok(ticket);
+        }
+
+        [HttpPost]
+        [Route("[action]/{id}")]
+        public void SendSms(int id)
+        {
+            var ticket = _context.Tickets.Include(x => x.Tecnico).Include(x => x.CreatedByUtilizador).Include(x => x.Estado).FirstOrDefault(x => x.TicketId == id);
+            if (ticket != null)
+            {
+                if (ticket.EstadoId == 3)
+                {
+                    _smsService.SendMessage(ticket.CreatedByUtilizador.PhoneNumber,
+                        $"Ola {ticket.CreatedByUtilizador.Nome}, o tecnico {ticket.Tecnico.Nome} conclui o trabalho relativo ao seu ticket #{ticket.TicketId}.");
+                }
+                else
+                {
+                    _smsService.SendMessage(ticket.CreatedByUtilizador.PhoneNumber, $"Ola {ticket.CreatedByUtilizador.Nome}, o tecnico {ticket.Tecnico.Nome} alterou o seu ticket #{ticket.TicketId} para o estado: {ticket.Estado.Designacao}.");
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)

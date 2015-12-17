@@ -14,11 +14,11 @@
             [
             @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword">Change</a>
+                <a asp-controller="Manage" asp-action="ChangePassword">Alterar</a>
             }
             else
             {
-                <a asp-controller="Manage" asp-action="SetPassword">Create</a>
+                <a asp-controller="Manage" asp-action="SetPassword">Criar</a>
             }
             ]
         </dd>
@@ -28,13 +28,11 @@
             @(Model.PhoneNumber ?? "None") [
                 @if (Model.PhoneNumber != null)
                 {
-                    <a asp-controller="Manage" asp-action="AddPhoneNumber">Change</a>
-                        @: &nbsp;|&nbsp;
-                        <a asp-controller="Manage" asp-action="RemovePhoneNumber">Remove</a>
+                    <a asp-controller="Manage" asp-action="AddPhoneNumber">Alterar</a>
                 }
                 else
                 {
-                    <a asp-controller="Manage" asp-action="AddPhoneNumber">Add</a>
+                    <a asp-controller="Manage" asp-action="AddPhoneNumber">Adicionar</a>
                 }
                 ]
         </dd>

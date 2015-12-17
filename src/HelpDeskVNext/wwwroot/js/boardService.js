@@ -20,6 +20,7 @@
         }
         return $http.put("/api/BoardWebApi/" + ticket.TicketId, ticket)
             .then(function (response) {
+                $http.post("/api/BoardWebApi/SendSms/" + ticket.TicketId);
                 return response.status == 204;
             }, function (error) {
                 return $q.reject(error.data.Message);

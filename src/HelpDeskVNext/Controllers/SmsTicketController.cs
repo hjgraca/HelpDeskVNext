@@ -1,90 +1,92 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using HelpDeskVNext.Services;
-using HelpDeskVNext.Services.SmsProvider;
+using HelpDeskVNext.Data.Entitidades;
+using HelpDeskVNext.Data.Models;
 using Microsoft.AspNet.Mvc;
-using Twilio;
-using Twilio.TwiML;
 
 namespace HelpDeskVNext.Controllers
 {
     [Route("api/[controller]")]
     public class SmsTicketController : Controller
     {
-        private readonly ISmsService _smsService;
+        private readonly ApplicationDbContext _context;
 
-        public SmsTicketController(ISmsService smsService)
+        public SmsTicketController(ApplicationDbContext context)
         {
-            _smsService = smsService;
-        }
-
-        // GET: api/ticket
-        [HttpGet]
-        public TwilioResponse Get()
-        {
-            return null;
-        }
-
-        // GET api/ticket/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            _context = context;
         }
 
         // POST api/ticket
         [HttpPost]
-        public void Post(string from, string body)
+        [Produces("text/plain")]
+        public IActionResult Post(string from, string body)
         {
+            if (string.IsNullOrWhiteSpace(body))
+            {
+                return Ok("Tem de fornecer pelo menos o titulo do ticket");
+            }
 
-            //_smsService.ProcessMessage(from, body);
+            var user = _context.Users.FirstOrDefault(x => x.PhoneNumber == from);
+            if (user == null)
+            {
+                return Ok("Utilizador nao registado na aplicao. Por favor faca o registo online: http://helpdesk20151214120334.azurewebsites.net/account/register");
+            }
 
-            //string smsResponse;
+            var values = body.Split(':');
+            var ticket = new Ticket
+            {
+                Titulo = values[0],
+                CreatedByUtilizador = user,
+                EstadoId = 1,
+                DataInsercao = DateTime.Now,
+                Descricao = values[0]
+            };
 
-            //try
-            //{
-            //    var host = await _usersRepository.FindByPhoneNumberAsync(from);
-            //    var reservation = await _reservationsRepository.FindFirstPendingReservationByHostAsync(host.Id);
+            if (values.Length > 1)
+            {
+                int prioridadeId;
+                if (int.TryParse(values[1], out prioridadeId))
+                {
+                    ticket.PrioridadeId = prioridadeId;
+                }
+                if (values.Length > 2)
+                {
+                    int departamentoId;
+                    if (int.TryParse(values[2], out departamentoId))
+                    {
+                        ticket.DepartamentoId = departamentoId;
+                    }
+                }
+            }
 
-            //    var smsRequest = body;
-            //    reservation.Status =
-            //        smsRequest.Equals("accept", StringComparison.InvariantCultureIgnoreCase) ||
-            //        smsRequest.Equals("yes", StringComparison.InvariantCultureIgnoreCase)
-            //        ? ReservationStatus.Confirmed
-            //        : ReservationStatus.Rejected;
+            if(ticket.DepartamentoId == null)
+                ticket.DepartamentoId = 1;
+            if (ticket.PrioridadeId == 0)
+                ticket.PrioridadeId = 1;
 
-            //    await _reservationsRepository.UpdateAsync(reservation);
-            //    smsResponse =
-            //        string.Format("You have successfully {0} the reservation", reservation.Status);
-            //}
-            //catch (Exception)
-            //{
-            //    smsResponse = "Sorry, it looks like you don't have any reservations to respond to.";
-            //}
+            GetRandomTec(ticket);
 
-            //return TwiML(Respond(smsResponse));
+            try
+            {
+                _context.Tickets.Add(ticket);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+
+            return Ok($"Ola {ticket.CreatedByUtilizador.Nome}, o ticket #{ticket.TicketId} foi criado com sucesso." +
+                      $" O tecnico {ticket.Tecnico.Nome} foi assignado ao mesmo. Pode ver o detalhe online: http://helpdesk20151214120334.azurewebsites.net/Tickets/Details/{ticket.TicketId}");
         }
 
-        private static TwilioResponse Respond(string message)
+        private void GetRandomTec(Ticket ticket)
         {
-            var response = new TwilioResponse();
-            response.Message(message);
-
-            return response;
-        }
-
-        // PUT api/ticket/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/ticket/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var rnd = new Random();
+            // so assigna tickets a user do departamento
+            var users = _context.Users.Where(x => x.DepartamentoId == ticket.DepartamentoId).ToList();
+            var index = rnd.Next(users.Count);
+            ticket.Tecnico = users[index];
         }
     }
 }

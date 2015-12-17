@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Data.Models.Roles;
-using HelpDeskVNext.Services.SmsProvider;
+using HelpDeskVNext.ViewModels.Tickets;
 using Twilio;
 
 namespace HelpDeskVNext
@@ -76,8 +76,8 @@ namespace HelpDeskVNext
         {
             services.AddScoped(provider => new TwilioRestClient(
                 Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"]));
-            services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<IService<IdentityRole, string>, RoleService>();
+            services.AddScoped<ISmsService, SmsService>();
         }
 
         // Configure is called after ConfigureServices is called.

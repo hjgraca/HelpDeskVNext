@@ -11,3 +11,12 @@ dnx ef database update
 
 Install Dnx Watch
 dnu commands install Microsoft.Dnx.Watcher
+
+Secrets
+dnu commands install Microsoft.Extensions.SecretManager
+Add twilio keys
+  "Twilio:TwilioAccountSid": "",
+  "Twilio:TwilioAuthToken": "",
+  "Twilio:TwilioPhoneNumber": "",
+
+%APPDATA%\microsoft\UserSecrets\<applicationId>\secrets.json
