@@ -2,6 +2,7 @@
 using System.Linq;
 using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNet.Mvc;
 
 namespace HelpDeskVNext.Controllers
@@ -10,10 +11,12 @@ namespace HelpDeskVNext.Controllers
     public class SmsTicketController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly TelemetryClient _telemetry;
 
-        public SmsTicketController(ApplicationDbContext context)
+        public SmsTicketController(ApplicationDbContext context, TelemetryClient telemetry)
         {
             _context = context;
+            _telemetry = telemetry;
         }
 
         // POST api/ticket
@@ -70,6 +73,7 @@ namespace HelpDeskVNext.Controllers
             {
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
+                _telemetry.TrackEvent("SMS-ticketcriado");
             }
             catch (Exception ex)
             {

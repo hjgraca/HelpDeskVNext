@@ -6,6 +6,7 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNet.Authorization;
 
 namespace HelpDeskVNext.Controllers
@@ -14,10 +15,12 @@ namespace HelpDeskVNext.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext _context;
+        private readonly TelemetryClient _telemetry;
 
-        public TicketsController(ApplicationDbContext context)
+        public TicketsController(ApplicationDbContext context, TelemetryClient telemetry)
         {
-            _context = context;    
+            _context = context;
+            _telemetry = telemetry;
         }
 
         // GET: Tickets1
@@ -70,6 +73,9 @@ namespace HelpDeskVNext.Controllers
 
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
+
+                _telemetry.TrackEvent("ticketcriado");
+
                 return RedirectToAction("Index");
             }
             
@@ -117,6 +123,9 @@ namespace HelpDeskVNext.Controllers
                 ticket.DataActualizacao = DateTime.Now;
                 _context.Update(ticket);
                 _context.SaveChanges();
+
+                _telemetry.TrackEvent("ticketeditado");
+
                 return RedirectToAction("Index");
             }
 
@@ -132,6 +141,9 @@ namespace HelpDeskVNext.Controllers
             Ticket ticket = _context.Tickets.Single(m => m.TicketId == id);
             _context.Tickets.Remove(ticket);
             _context.SaveChanges();
+
+            _telemetry.TrackEvent("ticketapagado");
+
             return RedirectToAction("Index");
         }
     }

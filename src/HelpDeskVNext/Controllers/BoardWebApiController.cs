@@ -8,6 +8,7 @@ using HelpDeskVNext.Data.Entitidades;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.ViewModels.Tickets;
 using System.Security.Claims;
+using Microsoft.ApplicationInsights;
 
 namespace HelpDeskVNext.Controllers
 {
@@ -17,11 +18,13 @@ namespace HelpDeskVNext.Controllers
     {
         private ApplicationDbContext _context;
         private readonly ISmsService _smsService;
+        private readonly TelemetryClient _telemetry;
 
-        public BoardWebApiController(ApplicationDbContext context, ISmsService smsService)
+        public BoardWebApiController(ApplicationDbContext context, ISmsService smsService, TelemetryClient telemetry)
         {
             _context = context;
             _smsService = smsService;
+            _telemetry = telemetry;
         }
 
         // GET: api/BoardWebApi
@@ -82,6 +85,8 @@ namespace HelpDeskVNext.Controllers
             try
             {
                 _context.SaveChanges();
+
+                _telemetry.TrackEvent("Board-ticketactualizado");
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -112,7 +117,7 @@ namespace HelpDeskVNext.Controllers
                     _context.SaveChanges();
                 }
             }
-
+            _telemetry.TrackEvent("Board-posicaoticketactualizada");
             return new HttpStatusCodeResult(StatusCodes.Status204NoContent);
         }
 
@@ -166,13 +171,15 @@ namespace HelpDeskVNext.Controllers
 
             var phone = ticket.CreatedByUtilizador.PhoneNumber;
             var user = ticket.CreatedByUtilizador.Nome;
-            var tec = ticket.Tecnico.Nome;
+            var tec = ticket.Tecnico?.Nome;
             var tId = ticket.TicketId;
 
             _context.Tickets.Remove(ticket);
             _context.SaveChanges();
 
             _smsService.SendMessage(phone, $"Ola {user}, o tecnico {tec} apagou o seu ticket do sistema #{tId}.");
+
+            _telemetry.TrackEvent("Board-ticketapagado");
 
             return Ok(ticket);
         }
@@ -193,6 +200,8 @@ namespace HelpDeskVNext.Controllers
                 {
                     _smsService.SendMessage(ticket.CreatedByUtilizador.PhoneNumber, $"Ola {ticket.CreatedByUtilizador.Nome}, o tecnico {ticket.Tecnico.Nome} alterou o seu ticket #{ticket.TicketId} para o estado: {ticket.Estado.Designacao}.");
                 }
+
+                _telemetry.TrackEvent("SMS-enviadoparautilizador");
             }
         }
 

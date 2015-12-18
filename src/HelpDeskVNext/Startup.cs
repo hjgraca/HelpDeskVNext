@@ -101,18 +101,6 @@ namespace HelpDeskVNext
                 // Add Error handling middleware which catches all application specific errors and
                 // sends the request to the following path or controller action.
                 app.UseExceptionHandler("/Home/Error");
-
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
-                {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                        .CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
-                    }
-                }
-                catch { }
             }
 
             // Add the platform handler to the request pipeline.
@@ -134,6 +122,17 @@ namespace HelpDeskVNext
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            try
+            {
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                    .CreateScope())
+                {
+                    serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                         .Database.Migrate();
+                }
+            }
+            catch { }
 
             SampleData.InitializeIdentityDatabaseAsync(app.ApplicationServices).Wait();
         }

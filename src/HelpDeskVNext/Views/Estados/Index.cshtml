@@ -1,13 +1,13 @@
 @model IEnumerable<HelpDeskVNext.Data.Entitidades.Estado>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gerir estados";
 }
 
-<h2>Index</h2>
+<h2>Gerir estados</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar novo</a>
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Designacao)
         </td>
         <td>
-            <a asp-action="Edit" asp-route-id="@item.EstadoId">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.EstadoId">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.EstadoId">Delete</a>
+            <a asp-action="Edit" asp-route-id="@item.EstadoId">Editar</a> |
+            <a asp-action="Details" asp-route-id="@item.EstadoId">Detalhe</a> |
+            <a asp-action="Delete" asp-route-id="@item.EstadoId">Apagar</a>
         </td>
     </tr>
 }
