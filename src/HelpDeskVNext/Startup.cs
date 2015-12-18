@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using HelpDeskVNext.Data.Models;
 using HelpDeskVNext.Data.Models.Roles;
 using HelpDeskVNext.ViewModels.Tickets;
-using Twilio;
 
 namespace HelpDeskVNext
 {
@@ -74,8 +73,8 @@ namespace HelpDeskVNext
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped(provider => new TwilioRestClient(
-                Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"]));
+            services.AddScoped(provider => new SmsClient(
+                Configuration["Twilio:TwilioAccountSid"], Configuration["Twilio:TwilioAuthToken"], Configuration["Twilio:TwilioPhoneNumber"]));
             services.AddScoped<IService<IdentityRole, string>, RoleService>();
             services.AddScoped<ISmsService, SmsService>();
         }
